@@ -1,2 +1,2 @@
-# Cellular Evolution Simulator?
-If we did this it would basically be you have cells that can move based off of a FFNN(Feed Forward Neural Network) and then you would have like food and reproduction. I have done it before its fun just watching and pulling stats from watching the NNs learn.
+# Cellular Evolution Simulator
+Its basically you have cells that can move based off of a FFNN(Feed Forward Neural Network) and then you would have food that spawns around the map and reproduction. You make it so that the cells have to eat to survive and once they eat enough food they can decide to reproduce. Then you let it run and the NN learns to control the cell it inhabits in order to survive.
