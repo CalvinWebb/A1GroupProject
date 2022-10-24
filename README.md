@@ -5,4 +5,5 @@ The whole idea is that you have cells that can move based off of a FFNN(Feed For
 ![Neural Network Example](https://github.com/CalvinWebb/A1GroupProject/blob/main/images/organism-neural-network.png)
 https://nathanrooy.github.io/posts/2017-11-30/evolving-simple-organisms-using-a-genetic-algorithm-and-deep-learning/
 ## Documentation
-https://drive.google.com/file/d/1Gp5FODvmNKAzDeeM2Pk-5PDO8PkB7aW9/view?usp=sharing
+![cellEvo](https://user-images.githubusercontent.com/70247202/197555742-87ef09f1-6777-4f32-ba55-3c307c017868.jpg)
+
