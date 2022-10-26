@@ -7,3 +7,5 @@ https://nathanrooy.github.io/posts/2017-11-30/evolving-simple-organisms-using-a-
 ## Documentation
 ![cellEvo](https://user-images.githubusercontent.com/70247202/197555742-87ef09f1-6777-4f32-ba55-3c307c017868.jpg)
 
+![(over)flowchart drawio](https://user-images.githubusercontent.com/89152916/198042459-164802d0-2687-4ce7-8ca7-5016b3c6fdbf.png)
+
