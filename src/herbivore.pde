@@ -1,0 +1,3 @@
+class herbivore extends cell {
+
+}
