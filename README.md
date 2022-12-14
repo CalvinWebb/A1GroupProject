@@ -9,3 +9,7 @@ https://nathanrooy.github.io/posts/2017-11-30/evolving-simple-organisms-using-a-
 
 ![(over)flowchart drawio](https://user-images.githubusercontent.com/89152916/198042459-164802d0-2687-4ce7-8ca7-5016b3c6fdbf.png)
 
+No sounds, images, dialog, or narratives.
+Use of Data structures includes:
+Linked List of Cells Both Herbivore and Carnivore, just to keep the time complexity down when searching and be able to trace parents from decendents.
+Basic data structures(All primitives, All composite excluding records and unions, and some abstracts)
