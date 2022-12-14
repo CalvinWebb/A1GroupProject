@@ -2,8 +2,8 @@ class carnivore extends cell {
 
 int damage;
 
-eat(herbivore);
+eat(cell);
 
-findHerbivore();
+findCell();
 
 }
