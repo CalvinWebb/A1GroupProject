@@ -8,7 +8,8 @@ background (0);
 
 if(!play) {
 startScreen();
-}else{//do things}}
+}else{//do things
+}}
 void startScreen() {
 background (0);
 textAlign(CENTER);
