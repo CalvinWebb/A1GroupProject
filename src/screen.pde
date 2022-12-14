@@ -1,5 +1,6 @@
+public static boolean play;
+public static PImage osu;
 
-boolean play;
 void setup() {
   size(1000, 1000);
   boolean play = false;
@@ -9,7 +10,8 @@ void draw () {
 
   if (!play) {
     startScreen();
-  } else {//do things
+  } else {
+    background(255);
   }
 }
 void startScreen() {
@@ -22,6 +24,4 @@ void startScreen() {
   if (mousePressed) {
     play=true;
   }
-}
-void mousePressed() {
 }
