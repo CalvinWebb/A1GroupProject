@@ -3,7 +3,7 @@ class cell {
   double speed;
   public static double cellSize; //this is just the visual representation of health
   color cellColor;
-  
+  //boolean hat = false;
   
   
   //AI stuff later dunno
