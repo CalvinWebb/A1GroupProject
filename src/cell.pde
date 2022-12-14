@@ -7,4 +7,5 @@ class cell {
   
   
   //AI stuff later dunno
+  //probably going to be using linkedlist
 }
