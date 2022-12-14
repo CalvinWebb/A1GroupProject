@@ -12,3 +12,7 @@ class cell {
 weights newGen() {
 
 }
+
+int eat() {
+//look at food energy to see how grow
+}
