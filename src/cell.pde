@@ -6,6 +6,9 @@ class cell {
   //boolean hat = false;
   
   
-  //AI stuff later dunno
-  //probably going to be using linkedlist
+
+}
+
+weights newGen() {
+
 }
