@@ -6,10 +6,10 @@ void setup() {
   frameRate(120);
   fullScreen();
   music = new SoundFile(this, "nekodex - circles!.mp3");
-  beats = new BeatDetector(this);
+  //beats = new BeatDetector(this);
   music.play();
   music.loop();
-  beats.sensitivity(1000);
+  //beats.sensitivity(1000);
 
   boolean play = false;
   background = loadImage("agarbg.png");
@@ -42,9 +42,9 @@ void startScreen() {
   startButton.draw();
 
   popMatrix();
-  if (beats.isBeat()==true) {
+  /*if (beats.isBeat()==true) {
     play=true;
-  }
+  }*/
 
   //Determine if the Button is being pressed
   boolean mouseClicked=startButton.mouseClicked();
