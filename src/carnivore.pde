@@ -1,15 +1,15 @@
-class carnivore extends cell {
+//class Carnivore extends Cell {
 
-int damage;
+//int damage;
 
-eat(cell);
+//eat(cell);
 
-findCell();
+//findCell();
 
 
-}
+//}
 
-findCell() {
-//would do a calculation on the closest cell and would rotate until it can face it
-return coords;
-}
+//findCell() {
+////would do a calculation on the closest cell and would rotate until it can face it
+//return coords;
+//}

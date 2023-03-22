@@ -1,12 +1,14 @@
-class food {
+class Food {
 
-int locationx = random(screenwidth);
-int locationy = random (screenheight);
-int energyAmount;
+  int locationx;
+  int locationy;
+  int energyAmount;
 
-for (int i = 0; i < 1000; i++) {
-  render(locationx, locationy);
-
-}
-
+  Food() {
+  }
+  void display() {
+    for (int i = 0; i < 1000; i++) {
+      //render(locationx, locationy);
+    }
+  }
 }

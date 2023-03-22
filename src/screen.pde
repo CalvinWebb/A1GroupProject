@@ -1,6 +1,13 @@
+import processing.sound.*;
+
+SoundFile music;
+PImage background;
+boolean play;
 PImage start;
 Button startButton;
 int r = height*6;
+ArrayList <Food> food = new ArrayList<Food>();
+
 
 void setup() {
   frameRate(120);
@@ -23,6 +30,7 @@ void draw() {
   if (!play) {
     startScreen();
   } else {
+    // Actual Playing Screen
     background(0);
     text("test", width/2, height/2);
   }
