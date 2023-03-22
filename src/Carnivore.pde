@@ -1,15 +1,20 @@
-//class Carnivore extends Cell {
+class Carnivore extends Cell {
 
-//int damage;
+  float locationx;
+  float locationy;
 
-//eat(cell);
-
-//findCell();
-
-
-//}
-
-//findCell() {
-////would do a calculation on the closest cell and would rotate until it can face it
-//return coords;
-//}
+  Carnivore(float temp_x, float temp_y) {
+    this.locationx = temp_x;
+    this.locationy = temp_y;
+  }
+  void display() {
+    fill(255);
+    circle(locationx, locationy, 100);
+  }
+  
+  void move(){
+    pushMatrix();
+    translate(random(-5,5),random(-5,5));
+    popMatrix();
+  }
+}

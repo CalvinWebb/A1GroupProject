@@ -7,6 +7,7 @@ PImage start;
 Button startButton;
 int r = height*6;
 ArrayList <Food> food = new ArrayList<Food>();
+ArrayList <Carnivore> carnivore = new ArrayList<Carnivore>();
 
 
 void setup() {
@@ -33,12 +34,23 @@ void draw() {
     // Actual Playing Screen
     
     background(0);
+    //Food
     if(food.size() <= 2000){
       food.add(new Food(random(width), random(height)));
     }
     
     for(Food foodpart : food){
       foodpart.display();
+    }
+    
+    //Carnivore
+    if(carnivore.size() <=10){
+      carnivore.add(new Carnivore(width/2,height/2));
+    }
+    
+    for(Carnivore carnivorepart: carnivore){
+      carnivorepart.display();
+      carnivorepart.move();
     }
     text("test", width/2, height/2);
   }

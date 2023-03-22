@@ -1,9 +1,9 @@
-//class Cell {
-//  double rotationAngle;
-//  double speed;
-//  public static double cellSize; //this is just the visual representation of health
-//  color cellColor;
-//  //boolean hat = false;
+class Cell {
+  double rotationAngle;
+  double speed;
+  double cellSize; //this is just the visual representation of health
+  color cellColor;
+  //boolean hat = false;
   
   
 
@@ -14,5 +14,5 @@
 //}
 
 //int eat() {
-////look at food energy to see how grow
-//}
+//look at food energy to see how grow
+}
