@@ -31,7 +31,15 @@ void draw() {
     startScreen();
   } else {
     // Actual Playing Screen
+    
     background(0);
+    if(food.size() <= 2000){
+      food.add(new Food(random(width), random(height)));
+    }
+    
+    for(Food foodpart : food){
+      foodpart.display();
+    }
     text("test", width/2, height/2);
   }
 }

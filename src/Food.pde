@@ -1,14 +1,15 @@
 class Food {
 
-  int locationx;
-  int locationy;
+  float locationx;
+  float locationy;
   int energyAmount;
 
-  Food() {
+  Food(float temp_x, float temp_y) {
+    this.locationx = temp_x;
+    this.locationy = temp_y;
   }
   void display() {
-    for (int i = 0; i < 1000; i++) {
-      //render(locationx, locationy);
-    }
+    fill(255);
+    circle(locationx, locationy, 10);
   }
 }
