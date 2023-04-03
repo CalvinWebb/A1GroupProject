@@ -1,4 +1,5 @@
 import processing.sound.*;
+import java.util.*;
 
 SoundFile music;
 PImage background;
@@ -32,27 +33,31 @@ void draw() {
     startScreen();
   } else {
     // Actual Playing Screen
-    
+
     background(0);
     //Food
-    if(food.size() <= 2000){
+    if (food.size() <= 2000) {
       food.add(new Food(random(width), random(height)));
     }
-    
-    for(Food foodpart : food){
+
+    for (Food foodpart : food) {
       foodpart.display();
     }
-    
+
     //Carnivore
-    if(carnivore.size() <=10){
-      carnivore.add(new Carnivore(width/2,height/2));
+    if (carnivore.size() <=10) {
+      carnivore.add(new Carnivore(width/2, height/2));
     }
-    
-    for(Carnivore carnivorepart: carnivore){
+
+    for (Carnivore carnivorepart : carnivore) {
       carnivorepart.display();
       carnivorepart.move();
+      for (int i =0; i<food.size(); i++) {
+        if (carnivorepart.collide(food.get(i).locationx, food.get(i).locationy, food.get(i).r)) {
+          food.remove(i);
+        }
+      }
     }
-    text("test", width/2, height/2);
   }
 }
 
@@ -66,13 +71,13 @@ void startScreen() {
   popMatrix();
   pushMatrix();
   translate(-mouseX*0.005, -mouseY*0.004);
-  
+
   startButton.draw();
 
   popMatrix();
   /*if (beats.isBeat()==true) {
-    play=true;
-  }*/
+   play=true;
+   }*/
 
   //Determine if the Button is being pressed
   boolean mouseClicked=startButton.mouseClicked();
