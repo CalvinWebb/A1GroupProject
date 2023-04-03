@@ -45,7 +45,7 @@ void draw() {
     }
 
     //Carnivore
-    if (carnivore.size() <=10) {
+    if (carnivore.size() <=1) {
       carnivore.add(new Carnivore(width/2, height/2));
     }
 
@@ -55,6 +55,7 @@ void draw() {
       for (int i =0; i<food.size(); i++) {
         if (carnivorepart.collide(food.get(i).locationx, food.get(i).locationy, food.get(i).r)) {
           food.remove(i);
+          carnivorepart.r += 100000/(carnivorepart.r* carnivorepart.r);
         }
       }
     }

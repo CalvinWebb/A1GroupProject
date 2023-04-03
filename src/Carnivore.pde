@@ -16,8 +16,8 @@ class Carnivore extends Cell {
   }
   
   void move(){
-    locationx+=random(-5,5);
-    locationy+=random(-5,5);
+    locationx+=random(-10,10);
+    locationy+=random(-10,10);
   }
   
   boolean collide(float _x, float _y, float _r){
