@@ -1,5 +1,5 @@
 class Cell {
-  double rotationAngle;
+  float rotationAngle = 0;
   double speed;
   double cellSize; //this is just the visual representation of health
   color cellColor;

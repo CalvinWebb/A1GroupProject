@@ -52,10 +52,12 @@ void draw() {
       carnivorepart.move();
       for (int i =0; i<food.size(); i++) {
         if (carnivorepart.collide(food.get(i).locationx, food.get(i).locationy, food.get(i).r)) {
+          carnivorepart.rotationAngle = PI + atan((food.get(i).locationx-carnivorepart.locationx)/(food.get(i).locationy-carnivorepart.locationy));
           food.remove(i);
           carnivorepart.r += 100000/(carnivorepart.r* carnivorepart.r);
         }
       }
+
     }
     for (Food foodpart : food) {
       for (Carnivore carnivorepart : carnivore) {

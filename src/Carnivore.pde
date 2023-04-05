@@ -18,8 +18,8 @@ class Carnivore extends Cell {
   
   void move(){
     speed=(3300)/(pow(r,1.1));
-    locationx+=random(-speed,speed);
-    locationy+=random(-speed,speed);
+    locationx+=cos(rotationAngle);
+    locationy+=sin(rotationAngle);
   }
   
   boolean collide(float _x, float _y, float _r){
