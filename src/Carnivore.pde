@@ -4,6 +4,7 @@ class Carnivore extends Cell {
   float locationy;
   float r;
   float distance;
+  float speed;
 
   Carnivore(float temp_x, float temp_y) {
     this.locationx = temp_x;
@@ -16,8 +17,9 @@ class Carnivore extends Cell {
   }
   
   void move(){
-    locationx+=random(-10,10);
-    locationy+=random(-10,10);
+    speed=(3300)/(pow(r,1.1));
+    locationx+=random(-speed,speed);
+    locationy+=random(-speed,speed);
   }
   
   boolean collide(float _x, float _y, float _r){

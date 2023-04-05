@@ -40,9 +40,7 @@ void draw() {
       food.add(new Food(random(width), random(height)));
     }
 
-    for (Food foodpart : food) {
-      foodpart.display();
-    }
+
 
     //Carnivore
     if (carnivore.size() <=1) {
@@ -56,6 +54,13 @@ void draw() {
         if (carnivorepart.collide(food.get(i).locationx, food.get(i).locationy, food.get(i).r)) {
           food.remove(i);
           carnivorepart.r += 100000/(carnivorepart.r* carnivorepart.r);
+        }
+      }
+    }
+    for (Food foodpart : food) {
+      for (Carnivore carnivorepart : carnivore) {
+        if (foodpart.collide(carnivorepart.locationx, carnivorepart.locationy, r)==false) {
+          foodpart.display();
         }
       }
     }
