@@ -3,6 +3,7 @@ class Cell {
   double speed;
   double cellSize; //this is just the visual representation of health
   color cellColor;
+  float intelligence;
   //boolean hat = false;
   
   

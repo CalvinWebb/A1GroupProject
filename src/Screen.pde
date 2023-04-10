@@ -36,23 +36,30 @@ void draw() {
 
     background(0);
     //Food
-    if (food.size() <= 2000) {
+    if (food.size() <= 5000) {
       food.add(new Food(random(width), random(height)));
     }
 
 
 
     //Carnivore
-    if (carnivore.size() <=1) {
+    if (carnivore.size() <=3) {
       carnivore.add(new Carnivore(width/2, height/2));
+      carnivore.get(carnivore.size()-1).rotationAngle = random(-PI,PI);
     }
 
     for (Carnivore carnivorepart : carnivore) {
+      carnivorepart.beforeEat = millis();
       carnivorepart.display();
       carnivorepart.move();
       for (int i =0; i<food.size(); i++) {
         if (carnivorepart.collide(food.get(i).locationx, food.get(i).locationy, food.get(i).r)) {
-          carnivorepart.rotationAngle = PI + atan((food.get(i).locationx-carnivorepart.locationx)/(food.get(i).locationy-carnivorepart.locationy));
+          if (carnivorepart.decision() == true){
+            carnivorepart.rotationAngle = atan((food.get(i).locationx-carnivorepart.locationx)/(food.get(i).locationy-carnivorepart.locationy));
+          }
+          else {
+            carnivorepart.rotationAngle = atan((food.get(i).locationx-carnivorepart.locationx)/(food.get(i).locationy-carnivorepart.locationy))+PI;
+          }
           food.remove(i);
           carnivorepart.r += 100000/(carnivorepart.r* carnivorepart.r);
         }
@@ -63,6 +70,7 @@ void draw() {
       for (Carnivore carnivorepart : carnivore) {
         if (foodpart.collide(carnivorepart.locationx, carnivorepart.locationy, r)==false) {
           foodpart.display();
+          carnivorepart.Smartmess.add(millis()-carnivorepart.beforeEat);
         }
       }
     }

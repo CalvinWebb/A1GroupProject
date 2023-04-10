@@ -5,6 +5,9 @@ class Carnivore extends Cell {
   float r;
   float distance;
   float speed;
+  float beforeEat;
+  float afterEat;
+  ArrayList <Float>Smartmess=new ArrayList<Float>();
 
   Carnivore(float temp_x, float temp_y) {
     this.locationx = temp_x;
@@ -20,6 +23,13 @@ class Carnivore extends Cell {
     speed=(3300)/(pow(r,1.1));
     locationx+=cos(rotationAngle);
     locationy+=sin(rotationAngle);
+  }
+  
+  boolean decision() {
+    if(Smartmess.get(Smartmess.size()-1) - Smartmess.get(Smartmess.size()-2) <= 0) {
+      return false;
+    }
+    return true;
   }
   
   boolean collide(float _x, float _y, float _r){
