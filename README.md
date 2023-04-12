@@ -9,7 +9,8 @@ https://nathanrooy.github.io/posts/2017-11-30/evolving-simple-organisms-using-a-
 
 ![(over)flowchart drawio](https://user-images.githubusercontent.com/89152916/198042459-164802d0-2687-4ce7-8ca7-5016b3c6fdbf.png)
 
-![Gantt chart](https://github.com/CalvinWebb/A1GroupProject/blob/main/images/Group%201%20CP2%20GANTT%20CHART%20TEMPLATE.xlsx?raw=true)
+![Gantt chart](https://docs.google.com/spreadsheets/d/1qLPCuAUA03ena3uYQU6hFVm8P5FP5Ge1Q7Z4pzqEPkM/edit#gid=0)
+
 No sounds, dialog, or narratives.
 
 Images:\
