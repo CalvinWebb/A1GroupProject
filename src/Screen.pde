@@ -45,7 +45,7 @@ void draw() {
     //Carnivore
     if (carnivore.size() <=3) {
       carnivore.add(new Carnivore(width/2, height/2));
-      carnivore.get(carnivore.size()-1).rotationAngle = random(-PI,PI);
+      carnivore.get(carnivore.size()-1).rotationAngle = random(0,2*PI);
     }
 
     for (Carnivore carnivorepart : carnivore) {
@@ -58,7 +58,7 @@ void draw() {
             carnivorepart.rotationAngle = atan((food.get(i).locationx-carnivorepart.locationx)/(food.get(i).locationy-carnivorepart.locationy));
           }
           else {
-            carnivorepart.rotationAngle = atan((food.get(i).locationx-carnivorepart.locationx)/(food.get(i).locationy-carnivorepart.locationy))+PI;
+            carnivorepart.rotationAngle = atan((food.get(i).locationx-carnivorepart.locationx)/(food.get(i).locationy-carnivorepart.locationy)) + PI;
           }
           food.remove(i);
           carnivorepart.r += 100000/(carnivorepart.r* carnivorepart.r);

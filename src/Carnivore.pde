@@ -15,29 +15,38 @@ class Carnivore extends Cell {
     r = 100;
   }
   void display() {
-    fill(255);
+    fill(248, 143, 137);
     circle(locationx, locationy, r);
   }
-  
-  void move(){
-    speed=(3300)/(pow(r,1.1));
-    locationx+=cos(rotationAngle);
-    locationy+=sin(rotationAngle);
+
+  void move() {
+    speed=(5);
+    if (((locationx+r/2) > width||(locationx-r/2)<0)||(locationy-r/2)<0||(locationy+r/2)>height) {
+ 
+      rotationAngle+=PI;
+      r -= 100000/(r*r);
+    }
+      locationx+=speed*cos(rotationAngle);
+      locationy+=speed*sin(rotationAngle);
   }
-  
+
   boolean decision() {
-    if(Smartmess.get(Smartmess.size()-1) - Smartmess.get(Smartmess.size()-2) <= 0) {
+    if (Smartmess.get(Smartmess.size()-1) - Smartmess.get(Smartmess.size()-2) <= 0 - Smartmess.get(Smartmess.size()-3)) {
       return false;
     }
     return true;
   }
-  
-  boolean collide(float _x, float _y, float _r){
-    distance = dist(locationx,locationy,_x,_y);
-    if(distance < r/2){
+
+  boolean collide(float _x, float _y, float _r) {
+    distance = dist(locationx, locationy, _x, _y);
+    if (distance < r/2) {
       return true;
-    }else{
+    } else {
       return false;
     }
+  }
+  
+  void recursion(){
+    
   }
 }
