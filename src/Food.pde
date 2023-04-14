@@ -12,6 +12,7 @@ class Food {
     r = 10;
   }
   void display() {
+    noFill();
     fill(255);
     circle(locationx, locationy, r);
   }

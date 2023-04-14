@@ -36,7 +36,7 @@ void draw() {
 
     background(0);
     //Food
-    if (food.size() <= 5000) {
+    if (food.size() <= 100) {
       food.add(new Food(random(width), random(height)));
     }
 
@@ -61,7 +61,7 @@ void draw() {
             carnivorepart.rotationAngle = atan((food.get(i).locationx-carnivorepart.locationx)/(food.get(i).locationy-carnivorepart.locationy)) + PI;
           }
           food.remove(i);
-          carnivorepart.r += 100000/(carnivorepart.r* carnivorepart.r);
+          carnivorepart.r += 32748/(carnivorepart.r* carnivorepart.r);
         }
       }
 

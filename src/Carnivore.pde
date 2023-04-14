@@ -12,7 +12,7 @@ class Carnivore extends Cell {
   Carnivore(float temp_x, float temp_y) {
     this.locationx = temp_x;
     this.locationy = temp_y;
-    r = 100;
+    r = 50;
   }
   void display() {
     fill(248, 143, 137);
@@ -20,11 +20,11 @@ class Carnivore extends Cell {
   }
 
   void move() {
-    speed=(5);
+    speed=(20)/sqrt(sqrt(r));
     if (((locationx+r/2) > width||(locationx-r/2)<0)||(locationy-r/2)<0||(locationy+r/2)>height) {
  
-      rotationAngle+=PI;
-      r -= 100000/(r*r);
+      rotationAngle+= random(3*PI/4,5*PI/4);
+      r -= 4096/(r*r);
     }
       locationx+=speed*cos(rotationAngle);
       locationy+=speed*sin(rotationAngle);
