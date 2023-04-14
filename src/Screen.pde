@@ -1,6 +1,7 @@
 import processing.sound.*;
 import java.util.*;
 
+//timstep of .05
 SoundFile music;
 PImage background;
 boolean play;
