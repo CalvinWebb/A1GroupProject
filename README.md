@@ -21,3 +21,8 @@ Use of Data structures includes:\
 Linked List of Cells Both Herbivore and Carnivore, just to keep the time complexity down when searching and be able to trace parents from decendents.
 
 Basic data structures(All primitives, All composite excluding records and unions, and some abstracts) https://github.com/nature-of-code/noc-examples-processing
+
+https://www.youtube.com/watch?v=aircAruvnKk&ab_channel=3Blue1Brown
+
+sigmoid
+2-D matrix
