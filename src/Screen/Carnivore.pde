@@ -23,11 +23,11 @@ class Carnivore extends Cell {
     speed=(20)/sqrt(sqrt(r));
     if (((locationx+r/2) > width||(locationx-r/2)<0)||(locationy-r/2)<0||(locationy+r/2)>height) {
  
-      rotationAngle+= random(3*PI/4,5*PI/4);
+      rotation+= random(3*PI/4,5*PI/4);
       r -= 4096/(r*r);
     }
-      locationx+=speed*cos(rotationAngle);
-      locationy+=speed*sin(rotationAngle);
+      locationx+=speed*cos(rotation);
+      locationy+=speed*sin(rotation);
   }
 
   boolean decision() {

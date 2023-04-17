@@ -46,26 +46,32 @@ void draw() {
     //Carnivore
     if (carnivore.size() <=3) {
       carnivore.add(new Carnivore(width/2, height/2));
-      carnivore.get(carnivore.size()-1).rotationAngle = random(0,2*PI);
+      carnivore.get(carnivore.size()-1).rotation = random(0,2*PI);
     }
 
-    for (Carnivore carnivorepart : carnivore) {
+    for (int m=0;m<carnivore.size();m++) {
+      Carnivore carnivorepart = carnivore.get(m);
       carnivorepart.beforeEat = millis();
       carnivorepart.display();
       carnivorepart.move();
       for (int i =0; i<food.size(); i++) {
         if (carnivorepart.collide(food.get(i).locationx, food.get(i).locationy, food.get(i).r)) {
           if (carnivorepart.decision() == true){
-            carnivorepart.rotationAngle = atan((food.get(i).locationx-carnivorepart.locationx)/(food.get(i).locationy-carnivorepart.locationy));
+            carnivorepart.rotation = atan((food.get(i).locationx-carnivorepart.locationx)/(food.get(i).locationy-carnivorepart.locationy));
           }
           else {
-            carnivorepart.rotationAngle = atan((food.get(i).locationx-carnivorepart.locationx)/(food.get(i).locationy-carnivorepart.locationy)) + PI;
+            carnivorepart.rotation = atan((food.get(i).locationx-carnivorepart.locationx)/(food.get(i).locationy-carnivorepart.locationy)) + PI;
           }
           food.remove(i);
           carnivorepart.r += 32748/(carnivorepart.r* carnivorepart.r);
         }
       }
-
+      for (int j=0; j<carnivore.size();j++) {
+        if (carnivorepart.collide(carnivore.get(j).locationx, carnivore.get(j).locationy,carnivore.get(j).r) && carnivorepart.r/carnivore.get(j).r>=1.1) {
+          carnivorepart.r+=carnivore.get(j).r;
+          carnivore.remove(j);
+        }
+      }
     }
     for (Food foodpart : food) {
       for (Carnivore carnivorepart : carnivore) {
