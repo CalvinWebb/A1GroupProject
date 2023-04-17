@@ -20,7 +20,7 @@ class Carnivore extends Cell {
   }
 
   void move() {
-    speed=(20)/sqrt(sqrt(r));
+    speed=(200)/r;
     if (((locationx+r/2) > width||(locationx-r/2)<0)||(locationy-r/2)<0||(locationy+r/2)>height) {
  
       rotation+= random(3*PI/4,5*PI/4);

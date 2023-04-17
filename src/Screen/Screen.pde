@@ -3,6 +3,7 @@ import java.util.*;
 
 //timstep of .05
 SoundFile music;
+int carnivoreGeneration = 3;
 PImage background;
 boolean play;
 PImage start;
@@ -44,7 +45,7 @@ void draw() {
 
 
     //Carnivore
-    if (carnivore.size() <=3) {
+    if (carnivore.size() <=carnivoreGeneration) {
       carnivore.add(new Carnivore(width/2, height/2));
       carnivore.get(carnivore.size()-1).rotation = random(0,2*PI);
     }
@@ -66,10 +67,11 @@ void draw() {
           carnivorepart.r += 32748/(carnivorepart.r* carnivorepart.r);
         }
       }
-      for (int j=0; j<carnivore.size();j++) {
+      for (int j=0; j*1.5<carnivore.size();j++) {
         if (carnivorepart.collide(carnivore.get(j).locationx, carnivore.get(j).locationy,carnivore.get(j).r) && carnivorepart.r/carnivore.get(j).r>=1.1) {
-          carnivorepart.r+=carnivore.get(j).r;
+          carnivorepart.r+=carnivore.get(j).r*0.5;
           carnivore.remove(j);
+          carnivoreGeneration -= 1;
         }
       }
     }
