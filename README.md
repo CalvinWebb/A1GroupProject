@@ -26,3 +26,5 @@ https://www.youtube.com/watch?v=aircAruvnKk&ab_channel=3Blue1Brown
 
 sigmoid
 2-D matrix
+
+linear algebra
