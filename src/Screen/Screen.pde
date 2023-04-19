@@ -47,22 +47,15 @@ void draw() {
     //Carnivore
     if (carnivore.size() <=carnivoreGeneration) {
       carnivore.add(new Carnivore(width/2, height/2));
-      carnivore.get(carnivore.size()-1).rotation = random(0,2*PI);
     }
 
     for (int m=0;m<carnivore.size();m++) {
       Carnivore carnivorepart = carnivore.get(m);
       carnivorepart.beforeEat = millis();
       carnivorepart.display();
-      carnivorepart.move();
+      carnivorepart.update_pos();
       for (int i =0; i<food.size(); i++) {
         if (carnivorepart.collide(food.get(i).locationx, food.get(i).locationy, food.get(i).r)) {
-          if (carnivorepart.decision() == true){
-            carnivorepart.rotation = atan((food.get(i).locationx-carnivorepart.locationx)/(food.get(i).locationy-carnivorepart.locationy));
-          }
-          else {
-            carnivorepart.rotation = atan((food.get(i).locationx-carnivorepart.locationx)/(food.get(i).locationy-carnivorepart.locationy)) + PI;
-          }
           food.remove(i);
           carnivorepart.r += 32748/(carnivorepart.r* carnivorepart.r);
         }
