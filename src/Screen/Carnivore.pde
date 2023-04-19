@@ -1,4 +1,4 @@
-class Carnivore extends Cell {
+class Carnivore /*extends Cell */{
 
   float locationx;
   float locationy;
