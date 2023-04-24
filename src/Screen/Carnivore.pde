@@ -10,7 +10,7 @@ class Carnivore extends Cell {
   ArrayList <Float>Smartmess=new ArrayList<Float>();
 
   Carnivore(float temp_x, float temp_y) {
-    super();
+    //super();
     this.locationx = temp_x;
     this.locationy = temp_y;
     r = 50;

@@ -3,14 +3,13 @@ class Cell {
   float locationx, locationy;
   double speed;
   double cellSize; //this is just the visual representation of health
-  color cellColor;
-  float intelligence;
   float[][] wih = new float[5][1];
   float[][] who = new float[5][1];
   float[][] input = new float[1][1];
   float[][] output = new float[1][1];
   float[][] hi = new float[5][1];
   float nn_dr;
+  int fittness;
 
   //boolean hat = false;
 
@@ -23,6 +22,7 @@ class Cell {
     who = input_who;
     wih = input_wih;
     input[0][0] = temp_input;
+    fitness = 0;
   }
 
   void think() {
