@@ -9,7 +9,7 @@ class Cell {
   float[][] output = new float[1][1];
   float[][] hi = new float[5][1];
   float nn_dr;
-  int fittness;
+  int fitness;
 
   //boolean hat = false;
 

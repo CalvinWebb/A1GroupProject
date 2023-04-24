@@ -49,7 +49,7 @@ void draw() {
       carnivore.add(new Carnivore(width/2, height/2));
     }
 
-    for (int m=0;m<carnivore.size();m++) {
+    for (int m=0; m<carnivore.size(); m++) {
       Carnivore carnivorepart = carnivore.get(m);
       carnivorepart.beforeEat = millis();
       carnivorepart.display();
@@ -60,8 +60,8 @@ void draw() {
           carnivorepart.r += 32748/(carnivorepart.r* carnivorepart.r);
         }
       }
-      for (int j=0; j*1.5<carnivore.size();j++) {
-        if (carnivorepart.collide(carnivore.get(j).locationx, carnivore.get(j).locationy,carnivore.get(j).r) && carnivorepart.r/carnivore.get(j).r>=1.1) {
+      for (int j=0; j*1.5<carnivore.size(); j++) {
+        if (carnivorepart.collide(carnivore.get(j).locationx, carnivore.get(j).locationy, carnivore.get(j).r) && carnivorepart.r/carnivore.get(j).r>=1.1) {
           carnivorepart.r+=carnivore.get(j).r*0.5;
           carnivore.remove(j);
           carnivoreGeneration -= 1;
@@ -101,5 +101,53 @@ void startScreen() {
   boolean mouseClicked=startButton.mouseClicked();
   if (mouseClicked==true) {
     play=true;
+  }
+}
+
+void evolveCarnivore(ArrayList<Carnivore> olist) {
+  for (int i = 1; i<olist.size(); i++) {
+    // We need to fix cell where fitness is incremented by 1 for every food it eats
+    int key = olist.get(i).fitness;
+    int j= i - 1;
+
+    while (j>=0 && olist.get(i).fitness < key) {
+      olist.get(i+1).fitness = olist.get(i).fitness;
+      j = j - 1;
+    }
+    olist.get(i+1).fitness = key;
+  }
+  for (int k = olist.size(); k > 1; k--) {
+    olist.remove(k);
+  }
+  // size is 4
+
+  int mat_pick = (int)random(0, 1.1);
+  if (mat_pick == 1) {
+    for (int i =0; i< olist.get(0).wih.length; i++) {
+      for (int j = 0; j< olist.get(0).wih[0].length; i++) {
+        olist.get(0).wih[i][j] = random(.8,1.2);
+        if(olist.get(0).wih[i][j] > 1){
+        olist.get(0).wih[i][j] = 1;
+        }
+        if(olist.get(0).wih[i][j] < -1){
+        olist.get(0).wih[i][j] = -1;
+        }
+      }
+    }
+  }else{
+  for (int i =0; i< olist.get(0).who.length; i++) {
+      for (int j = 0; j< olist.get(0).who[0].length; i++) {
+        olist.get(0).who[i][j] = random(.8,1.2);
+        if(olist.get(0).who[i][j] > 1){
+        olist.get(0).who[i][j] = 1;
+        }
+        if(olist.get(0).who[i][j] < -1){
+        olist.get(0).who[i][j] = -1;
+        }
+      }
+    }
+  }
+  for (int l = 0; l < 4; l++) {
+    olist.add(new Carnivore(olist.get(0).locationx,olist.get(0).locationy, olist.get(0).wih, olist.get(0).who, /* supposed to be nearest food*/ 30));
   }
 }
