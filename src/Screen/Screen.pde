@@ -120,34 +120,35 @@ void evolveCarnivore(ArrayList<Carnivore> olist) {
     olist.remove(k);
   }
   // size is 4
-
-  int mat_pick = (int)random(0, 1.1);
-  if (mat_pick == 1) {
-    for (int i =0; i< olist.get(0).wih.length; i++) {
-      for (int j = 0; j< olist.get(0).wih[0].length; i++) {
-        olist.get(0).wih[i][j] = random(.8,1.2);
-        if(olist.get(0).wih[i][j] > 1){
-        olist.get(0).wih[i][j] = 1;
-        }
-        if(olist.get(0).wih[i][j] < -1){
-        olist.get(0).wih[i][j] = -1;
-        }
-      }
-    }
-  }else{
-  for (int i =0; i< olist.get(0).who.length; i++) {
-      for (int j = 0; j< olist.get(0).who[0].length; i++) {
-        olist.get(0).who[i][j] = random(.8,1.2);
-        if(olist.get(0).who[i][j] > 1){
-        olist.get(0).who[i][j] = 1;
-        }
-        if(olist.get(0).who[i][j] < -1){
-        olist.get(0).who[i][j] = -1;
-        }
-      }
-    }
-  }
   for (int l = 0; l < 4; l++) {
-    olist.add(new Carnivore(olist.get(0).locationx,olist.get(0).locationy, olist.get(0).wih, olist.get(0).who, /* supposed to be nearest food*/ 30));
+    olist.add(new Carnivore(olist.get(0).locationx, olist.get(0).locationy, olist.get(0).wih, olist.get(0).who, /* supposed to be nearest food*/ 30));
+  }
+  int mat_pick = (int)random(0, 1.9);
+  for (int d = 0; d< olist.size(); d++) {
+    if (mat_pick == 1) {
+      for (int p = 0; p< olist.get(d).wih.length; p++) {
+        for (int h = 0; h< olist.get(d).wih[0].length; h++) {
+          olist.get(d).wih[p][h] = random(.8, 1.2);
+          if (olist.get(d).wih[p][h] > 1) {
+            olist.get(d).wih[p][h] = 1;
+          }
+          if (olist.get(d).wih[p][h] < -1) {
+            olist.get(d).wih[p][h] = -1;
+          }
+        }
+      }
+    } else {
+      for (int u =0; u< olist.get(d).who.length; u++) {
+        for (int y = 0; y< olist.get(d).who[0].length; y++) {
+          olist.get(d).who[u][y] = random(.8, 1.2);
+          if (olist.get(d).who[u][y] > 1) {
+            olist.get(d).who[u][y] = 1;
+          }
+          if (olist.get(d).who[u][y] < -1) {
+            olist.get(d).who[u][y] = -1;
+          }
+        }
+      }
+    }
   }
 }

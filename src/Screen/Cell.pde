@@ -6,7 +6,7 @@ class Cell {
   float[][] wih = new float[5][1];
   float[][] who = new float[5][1];
   float[][] input = new float[1][1];
-  float[][] output = new float[1][1];
+  float[][] output = new float[5][1];
   float[][] hi = new float[5][1];
   float nn_dr;
   int fitness;
@@ -33,7 +33,7 @@ class Cell {
     }
     for (int k =0; k< wih.length; k++) {
       for (int l = 0; l< wih[0].length; l++) {
-        output[k][l] = (float)Math.tanh(hi[0][0] * who[k][l]);
+        output[k][l] = (float)Math.tanh(hi[k][l] * who[k][l]);
       }
     }
     for(int m = 0; m < output.length; m++){
