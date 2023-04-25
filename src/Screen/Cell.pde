@@ -28,7 +28,7 @@ class Cell {
   void think() {
     
     for (int i =0; i< wih.length-1; i++) {
-      for (int j = 0; j< wih[0].length-1; i++) {
+      for (int j = 0; j< wih[0].length-1; j++) {
         hi[i][j] = (float)Math.tanh(input[0][0] * wih[i][j]);
       }
     }
@@ -38,7 +38,7 @@ class Cell {
       }
     }
     for(int m = 0; m < output.length-1; m++){
-      for(int n = 0; m < output[0].length-1; n++){
+      for(int n = 0; n < output[0].length-1; n++){
         nn_dr += output[m][n];
       }
     }
