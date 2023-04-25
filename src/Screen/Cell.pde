@@ -27,18 +27,18 @@ class Cell {
 
   void think() {
     
-    for (int i =0; i< wih.length-1; i++) {
-      for (int j = 0; j< wih[0].length-1; j++) {
+    for (int i =0; i< wih.length; i++) {
+      for (int j = 0; j< wih[0].length; j++) {
         hi[i][j] = (float)Math.tanh(input[0][0] * wih[i][j]);
       }
     }
-    for (int k =0; k< wih.length-1; k++) {
-      for (int l = 0; l< wih[0].length-1; l++) {
+    for (int k =0; k< wih.length; k++) {
+      for (int l = 0; l< wih[0].length; l++) {
         output[k][l] = (float)Math.tanh(hi[k][l] * who[k][l]);
       }
     }
-    for(int m = 0; m < output.length-1; m++){
-      for(int n = 0; n < output[0].length-1; n++){
+    for(int m = 0; m < output.length; m++){
+      for(int n = 0; n < output[0].length; n++){
         nn_dr += output[m][n];
       }
     }
