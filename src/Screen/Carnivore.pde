@@ -17,7 +17,7 @@ class Carnivore extends Cell {
   }
   void display() {
     fill(248, 143, 137);
-    circle(locationx, locationy, r);
+    circle(super.locationx, super.locationy, r);
   }
 
   boolean collide(float _x, float _y, float _r) {

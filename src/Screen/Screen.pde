@@ -6,6 +6,7 @@ SoundFile music;
 int carnivoreGeneration = 3;
 PImage background;
 boolean play;
+boolean play2;
 PImage start;
 Button startButton;
 int r = height*6;
@@ -16,13 +17,14 @@ ArrayList <Carnivore> carnivore = new ArrayList<Carnivore>();
 void setup() {
   frameRate(120);
   fullScreen();
-  music = new SoundFile(this, "nekodex - circles!.mp3");
+  SoundFile music = new SoundFile(this, "599182.mp3");
   //beats = new BeatDetector(this);
   music.play();
   music.loop();
   //beats.sensitivity(1000);
 
   boolean play = false;
+  boolean play2 = false;
   background = loadImage("agarbg.png");
   imageMode(CENTER);
   start = loadImage("osulogo.png");
@@ -34,26 +36,45 @@ void draw() {
   if (!play) {
     startScreen();
   } else {
-    // Actual Playing Screen
+    float[][]temp=new float[5][1];
+    for (int ii=0; ii<5; ii++) {
+      temp[ii][0]=0.5;
+    }
 
+    carnivore.add(new Carnivore(width/2, height/2, temp, temp, 1));
+    carnivore.add(new Carnivore(width/2, height/2, temp, temp, 1));
+    carnivore.add(new Carnivore(width/2, height/2, temp, temp, 1));
+    carnivore.add(new Carnivore(width/2, height/2, temp, temp, 1));
+    //food.add(new Food(width/2,height/2));
+    
+    // Actual Playing Screen
+    if(play2) {
+      play2=false;
+      food.clear();
+    evolveCarnivore(carnivore);
+  }
     background(0);
     //Food
     if (food.size() <= 100) {
       food.add(new Food(random(width), random(height)));
     }
-
+    
 
 
     //Carnivore
-    if (carnivore.size() <=carnivoreGeneration) {
-      carnivore.add(new Carnivore(width/2, height/2));
-    }
+    //if (carnivore.size() <=carnivoreGeneration) {
+    //  //carnivore.add(new Carnivore(width/2, height/2,));
+    //}
 
     for (int m=0; m<carnivore.size(); m++) {
       Carnivore carnivorepart = carnivore.get(m);
       carnivorepart.beforeEat = millis();
-      carnivorepart.display();
+
+      carnivorepart.think();
+      carnivorepart.update_rotation();
       carnivorepart.update_pos();
+      carnivorepart.display();
+
       for (int i =0; i<food.size(); i++) {
         if (carnivorepart.collide(food.get(i).locationx, food.get(i).locationy, food.get(i).r)) {
           food.remove(i);
@@ -76,6 +97,7 @@ void draw() {
         }
       }
     }
+  
   }
 }
 
@@ -105,7 +127,7 @@ void startScreen() {
 }
 
 void evolveCarnivore(ArrayList<Carnivore> olist) {
-  for (int i = 1; i<olist.size(); i++) {
+  for (int i = 0; i<olist.size()-1; i++) {
     // We need to fix cell where fitness is incremented by 1 for every food it eats
     int key = olist.get(i).fitness;
     int j= i - 1;
@@ -116,7 +138,7 @@ void evolveCarnivore(ArrayList<Carnivore> olist) {
     }
     olist.get(i+1).fitness = key;
   }
-  for (int k = olist.size(); k > 1; k--) {
+  for (int k = olist.size()-1; k > 0; k--) {
     olist.remove(k);
   }
   // size is 4
@@ -151,4 +173,7 @@ void evolveCarnivore(ArrayList<Carnivore> olist) {
       }
     }
   }
+}
+void mouseReleased() {
+  play2=true;
 }
