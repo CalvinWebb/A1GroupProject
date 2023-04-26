@@ -29,6 +29,15 @@ void setup() {
   imageMode(CENTER);
   start = loadImage("osulogo.png");
   startButton = new Button(width/2, height/2, r, r, 1.2, start);
+  float[][]temp=new float[5][1];
+  for (int ii=0; ii<5; ii++) {
+    temp[ii][0]=0.5;
+  }
+
+  carnivore.add(new Carnivore(width/2, height/2, temp, temp, 1));
+  carnivore.add(new Carnivore(width/2, height/2, temp, temp, 1));
+  carnivore.add(new Carnivore(width/2, height/2, temp, temp, 1));
+  carnivore.add(new Carnivore(width/2, height/2, temp, temp, 1));
 }
 void draw() {
 
@@ -36,15 +45,6 @@ void draw() {
   if (!play) {
     startScreen();
   } else {
-    float[][]temp=new float[5][1];
-    for (int ii=0; ii<5; ii++) {
-      temp[ii][0]=0.5;
-    }
-
-    carnivore.add(new Carnivore(width/2, height/2, temp, temp, 1));
-    carnivore.add(new Carnivore(width/2, height/2, temp, temp, 1));
-    carnivore.add(new Carnivore(width/2, height/2, temp, temp, 1));
-    carnivore.add(new Carnivore(width/2, height/2, temp, temp, 1));
     //food.add(new Food(width/2,height/2));
     
     // Actual Playing Screen
