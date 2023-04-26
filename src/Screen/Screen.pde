@@ -12,6 +12,7 @@ Button startButton;
 int r = height*6;
 ArrayList <Food> food = new ArrayList<Food>();
 ArrayList <Carnivore> carnivore = new ArrayList<Carnivore>();
+ArrayList <Carnivore> old_carnivore = new ArrayList<Carnivore>();
 
 
 void setup() {
@@ -143,12 +144,17 @@ void evolveCarnivore(ArrayList<Carnivore> olist) {
     }
     olist.get(i+1).fitness = key;
   }
-  for (int k = olist.size()-1; k > 0; k--) {
-    olist.remove(k);
+  
+  for(Carnivore carnivorepart: carnivore){
+      old_carnivore.add(carnivorepart);
   }
+  olist.clear();
+  //for (int k = olist.size()-1; k > 0; k--) {
+  //  olist.remove(k);
+  //}
   // size is 4
   for (int l = 0; l < 4; l++) {
-    olist.add(new Carnivore(olist.get(0).locationx, olist.get(0).locationy, olist.get(0).wih, olist.get(0).who, /* supposed to be nearest food*/ 100));
+    olist.add(new Carnivore(old_carnivore.get(0).locationx, old_carnivore.get(0).locationy, old_carnivore.get(0).wih, old_carnivore.get(0).who, /* supposed to be nearest food*/ 100));
   }
   int mat_pick = (int)random(0, 1.9);
   for (int d = 0; d< olist.size(); d++) {
@@ -178,6 +184,7 @@ void evolveCarnivore(ArrayList<Carnivore> olist) {
       }
     }
   }
+  old_carnivore.clear();
 }
 void mouseReleased() {
   play2=true;
