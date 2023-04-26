@@ -86,6 +86,7 @@ void draw() {
         }
       }
       for (int j=0; j*1.5<carnivore.size(); j++) {
+        // What is this? Edge detection? Carnivore Eat?
         if (carnivorepart.collide(carnivore.get(j).locationx, carnivore.get(j).locationy, carnivore.get(j).r) && carnivorepart.r/carnivore.get(j).r>=1.1) {
           carnivorepart.r+=carnivore.get(j).r*0.5;
           carnivore.remove(j);
@@ -147,7 +148,7 @@ void evolveCarnivore(ArrayList<Carnivore> olist) {
   }
   // size is 4
   for (int l = 0; l < 4; l++) {
-    olist.add(new Carnivore(olist.get(0).locationx, olist.get(0).locationy, olist.get(0).wih, olist.get(0).who, /* supposed to be nearest food*/ 30));
+    olist.add(new Carnivore(olist.get(0).locationx, olist.get(0).locationy, olist.get(0).wih, olist.get(0).who, /* supposed to be nearest food*/ 100));
   }
   int mat_pick = (int)random(0, 1.9);
   for (int d = 0; d< olist.size(); d++) {

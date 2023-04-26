@@ -22,7 +22,7 @@ class Carnivore extends Cell {
 
   boolean collide(float _x, float _y, float _r) {
     distance = dist(locationx, locationy, _x, _y);
-    if (distance < r/2) {
+    if (distance < _r/2) {
       return true;
     } else {
       return false;
