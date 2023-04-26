@@ -186,6 +186,21 @@ void evolveCarnivore(ArrayList<Carnivore> olist) {
   }
   old_carnivore.clear();
 }
+
 void mouseReleased() {
   play2=true;
+}
+
+
+float distanceTo(Carnivore carni) 
+{
+  float shortest = dist(food.get(0).locationx, food.get(0).locationy, carni.locationx, carni.locationy);
+  for(int i = 0; 1<food.size(); i++) 
+  {
+    if (dist(food.get(i).locationx, food.get(i).locationy, carni.locationx, carni.locationy) > shortest) 
+    {
+      shortest = dist(food.get(i).locationx, food.get(i).locationy, carni.locationx, carni.locationy);
+    }
+  }
+  return shortest;
 }
