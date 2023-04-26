@@ -52,6 +52,10 @@ void draw() {
       play2=false;
       food.clear();
     evolveCarnivore(carnivore);
+    carnivore.get(0).r=50;
+    carnivore.get(0).locationx=width/2;
+    carnivore.get(0).locationy=height/2;
+    carnivore.get(0).fitness=0;
   }
     background(0);
     //Food
