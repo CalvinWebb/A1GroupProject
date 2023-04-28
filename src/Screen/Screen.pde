@@ -84,6 +84,7 @@ void draw() {
         if (carnivorepart.collide(food.get(i).locationx, food.get(i).locationy, food.get(i).r)) {
           food.remove(i);
           carnivorepart.r += 32748/(carnivorepart.r* carnivorepart.r);
+          carnivorepart.updateINP();
         }
       }
       for (int j=0; j*1.5<carnivore.size(); j++) {
@@ -154,7 +155,7 @@ void evolveCarnivore(ArrayList<Carnivore> olist) {
   //}
   // size is 4
   for (int l = 0; l < 4; l++) {
-    olist.add(new Carnivore(old_carnivore.get(0).locationx, old_carnivore.get(0).locationy, old_carnivore.get(0).wih, old_carnivore.get(0).who, distanceTo(olist.get(l))));
+    olist.add(new Carnivore(old_carnivore.get(0).locationx, old_carnivore.get(0).locationy, old_carnivore.get(0).wih, old_carnivore.get(0).who, random(0, 360)));
   }
   int mat_pick = (int)random(0, 1.9);
   for (int d = 0; d< olist.size(); d++) {
