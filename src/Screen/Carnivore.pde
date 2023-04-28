@@ -7,10 +7,12 @@ class Carnivore extends Cell {
   float speed;
   float beforeEat;
   float afterEat;
+  float input;
   ArrayList <Float>Smartmess=new ArrayList<Float>();
 
   Carnivore(float temp_x, float temp_y, float[][] input_wih, float[][] input_who, float temp_input) {
     super(temp_x, temp_y, input_wih, input_who, temp_input);
+    this.input = temp_input;
     this.locationx = temp_x;
     this.locationy = temp_y;
     r = 50;
@@ -29,7 +31,7 @@ class Carnivore extends Cell {
     }
   }
   
-  void recursion(){
-    
+  void updateINP(){
+    super.input = distanceTo(this);
   }
 }

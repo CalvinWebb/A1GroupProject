@@ -10,9 +10,9 @@ boolean play2;
 PImage start;
 Button startButton;
 int r = height*6;
-ArrayList <Food> food = new ArrayList<Food>();
-ArrayList <Carnivore> carnivore = new ArrayList<Carnivore>();
-ArrayList <Carnivore> old_carnivore = new ArrayList<Carnivore>();
+public ArrayList <Food> food = new ArrayList<Food>();
+public ArrayList <Carnivore> carnivore = new ArrayList<Carnivore>();
+public ArrayList <Carnivore> old_carnivore = new ArrayList<Carnivore>();
 
 
 void setup() {
@@ -154,7 +154,7 @@ void evolveCarnivore(ArrayList<Carnivore> olist) {
   //}
   // size is 4
   for (int l = 0; l < 4; l++) {
-    olist.add(new Carnivore(old_carnivore.get(0).locationx, old_carnivore.get(0).locationy, old_carnivore.get(0).wih, old_carnivore.get(0).who, /* supposed to be nearest food*/ 100));
+    olist.add(new Carnivore(old_carnivore.get(0).locationx, old_carnivore.get(0).locationy, old_carnivore.get(0).wih, old_carnivore.get(0).who, distanceTo(olist.get(l))));
   }
   int mat_pick = (int)random(0, 1.9);
   for (int d = 0; d< olist.size(); d++) {
@@ -192,7 +192,7 @@ void mouseReleased() {
 }
 
 
-float distanceTo(Carnivore carni) 
+public float distanceTo(Carnivore carni) 
 {
   float shortest = dist(food.get(0).locationx, food.get(0).locationy, carni.locationx, carni.locationy);
   for(int i = 0; 1<food.size(); i++) 
