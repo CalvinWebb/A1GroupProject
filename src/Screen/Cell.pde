@@ -5,7 +5,7 @@ class Cell {
   double cellSize; //this is just the visual representation of health
   float[][] wih = new float[5][1];
   float[][] who = new float[5][1];
-  float[][] input = new float[1][1];
+  float input;
   float[][] output = new float[5][1];
   float[][] hi = new float[5][1];
   float nn_dr;
@@ -21,7 +21,7 @@ class Cell {
     speed = 10;
     who = input_who;
     wih = input_wih;
-    input[0][0] = temp_input;
+    input = temp_input;
     fitness = 0;
   }
 
@@ -29,7 +29,7 @@ class Cell {
     
     for (int i =0; i< wih.length; i++) {
       for (int j = 0; j< wih[0].length; j++) {
-        hi[i][j] = (float)Math.tanh(input[0][0] * wih[i][j]);
+        hi[i][j] = (float)Math.tanh(input * wih[i][j]);
       }
     }
     for (int k =0; k< wih.length; k++) {
