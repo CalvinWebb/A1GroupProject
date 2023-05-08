@@ -60,7 +60,7 @@ void draw() {
   }
     background(0);
     //Food
-    if (food.size() <= 100) {
+    if (food.size() <= 500) {
       food.add(new Food(random(width), random(height)));
     }
     
@@ -80,9 +80,8 @@ void draw() {
       carnivorepart.update_pos();
       carnivorepart.display();
 
-      for (int i =0; i<food.size(); i++) {
+      for (int i =0; i<food.size()-1; i++) {
         if (carnivorepart.collide(food.get(i).locationx, food.get(i).locationy, food.get(i).r)) {
-          food.remove(i);
           carnivorepart.r += 32748/(carnivorepart.r* carnivorepart.r);
           carnivorepart.updateINP();
         }
@@ -98,9 +97,11 @@ void draw() {
     }
     for (Food foodpart : food) {
       for (Carnivore carnivorepart : carnivore) {
-        if (foodpart.collide(carnivorepart.locationx, carnivorepart.locationy, r)==false) {
+        if (foodpart.collide(carnivorepart.locationx, carnivorepart.locationy, foodpart.r) == false) {
           foodpart.display();
-          carnivorepart.Smartmess.add(millis()-carnivorepart.beforeEat);
+        }
+        else {
+          food.remove(foodpart); 
         }
       }
     }
@@ -201,6 +202,8 @@ public float distanceTo(Carnivore carni)
     if (dist(food.get(i).locationx, food.get(i).locationy, carni.locationx, carni.locationy) > shortest) 
     {
       shortest = dist(food.get(i).locationx, food.get(i).locationy, carni.locationx, carni.locationy);
+      food.remove(i); //suspicious
+      
     }
   }
   return shortest;
