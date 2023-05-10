@@ -3,6 +3,7 @@ import java.util.*;
 
 //timstep of .05
 SoundFile music;
+int carnivoreGeneration = 3;
 PImage background;
 boolean play;
 boolean play2;
@@ -12,7 +13,7 @@ int r = height*6;
 public ArrayList <Food> food = new ArrayList<Food>();
 public ArrayList <Carnivore> carnivore = new ArrayList<Carnivore>();
 public ArrayList <Carnivore> old_carnivore = new ArrayList<Carnivore>();
-Graph graph = new Graph();
+
 
 void setup() {
   frameRate(120);
@@ -25,7 +26,7 @@ void setup() {
 
   boolean play = false;
   boolean play2 = false;
-  background = loadImage("torekka.png");
+  background = loadImage("agarbg.png");
   imageMode(CENTER);
   start = loadImage("osulogo.png");
   startButton = new Button(width/2, height/2, r, r, 1.2, start);
@@ -33,16 +34,14 @@ void setup() {
   for (int ii=0; ii<5; ii++) {
     temp[ii][0]=0.5;
   }
-  graph.add(69);
-  graph.add(42);
-  graph.add(29);
-  
+
   carnivore.add(new Carnivore(width/2, height/2, temp, temp, 1));
   carnivore.add(new Carnivore(width/2, height/2, temp, temp, 1));
   carnivore.add(new Carnivore(width/2, height/2, temp, temp, 1));
   carnivore.add(new Carnivore(width/2, height/2, temp, temp, 1));
 }
 void draw() {
+
   //Determine if user is in gameplay
   if (!play) {
     startScreen();
@@ -61,7 +60,7 @@ void draw() {
   }
     background(0);
     //Food
-    if (food.size() <= 100) {
+    if (food.size() <= 500) {
       food.add(new Food(random(width), random(height)));
     }
     
@@ -71,7 +70,7 @@ void draw() {
     //if (carnivore.size() <=carnivoreGeneration) {
     //  //carnivore.add(new Carnivore(width/2, height/2,));
     //}
-    graph.graph();
+
     for (int m=0; m<carnivore.size(); m++) {
       Carnivore carnivorepart = carnivore.get(m);
       carnivorepart.beforeEat = millis();
@@ -81,43 +80,32 @@ void draw() {
       carnivorepart.update_pos();
       carnivorepart.display();
 
-      for (int i =0; i<food.size(); i++) {
-        if (!carnivorepart.collide(food.get(i).locationx, food.get(i).locationy, food.get(i).r)) {
-          food.get(i).display();
-        }else{
-          System.out.println(i);
-          System.out.println("Collision");
+      for (int i =0; i<food.size()-1; i++) {
+        if (carnivorepart.collide(food.get(i).locationx, food.get(i).locationy, food.get(i).r)) {
+          System.out.println("1");
           carnivorepart.r += 32748/(carnivorepart.r* carnivorepart.r);
           carnivorepart.updateINP();
-          System.out.println("cock" + carnivorepart.input);
-          if(food.size() > i) {
-            food.remove(food.get(i));
-            
-          }
-          //food.remove(food.get(i));
         }
-
       }
       for (int j=0; j*1.5<carnivore.size(); j++) {
         // What is this? Edge detection? Carnivore Eat?
         if (carnivorepart.collide(carnivore.get(j).locationx, carnivore.get(j).locationy, carnivore.get(j).r) && carnivorepart.r/carnivore.get(j).r>=1.1) {
           carnivorepart.r+=carnivore.get(j).r*0.5;
           carnivore.remove(j);
+          carnivoreGeneration -= 1;
         }
       }
     }
-    //for (Food foodpart : food) {
-    //  for (Carnivore carnivorepart : carnivore) {
-    //    if (foodpart.collide(carnivorepart.locationx, carnivorepart.locationy, foodpart.r) == false) {
-    //      System.out.println("Not Hit");
-    //      foodpart.display();
-    //    }
-    //    else {
-    //      System.out.println("Collision");
-    //      food.remove(foodpart); 
-    //    }
-    //  }
-    //}
+    for (Food foodpart : food) {
+      for (Carnivore carnivorepart : carnivore) {
+        if (foodpart.collide(carnivorepart.locationx, carnivorepart.locationy, foodpart.r) == false) {
+          foodpart.display();
+        }
+        else {
+          food.remove(foodpart); 
+        }
+      }
+    }
   
   }
 }
@@ -159,7 +147,7 @@ void evolveCarnivore(ArrayList<Carnivore> olist) {
     }
     olist.get(i+1).fitness = key;
   }
-  graph.add(key);
+  
   for(Carnivore carnivorepart: carnivore){
       old_carnivore.add(carnivorepart);
   }
@@ -169,7 +157,7 @@ void evolveCarnivore(ArrayList<Carnivore> olist) {
   //}
   // size is 4
   for (int l = 0; l < 4; l++) {
-    olist.add(new Carnivore(old_carnivore.get(0).locationx, old_carnivore.get(0).locationy, old_carnivore.get(0).wih, old_carnivore.get(0).who, /*Neural Network learning*/random(0, 360)));
+    olist.add(new Carnivore(old_carnivore.get(0).locationx, old_carnivore.get(0).locationy, old_carnivore.get(0).wih, old_carnivore.get(0).who, random(0, 360)));
   }
   int mat_pick = (int)random(0, 1.9);
   for (int d = 0; d< olist.size(); d++) {
@@ -210,12 +198,13 @@ void mouseReleased() {
 public float distanceTo(Carnivore carni) 
 {
   float shortest = dist(food.get(0).locationx, food.get(0).locationy, carni.locationx, carni.locationy);
-  for(int i = 0; i<food.size(); i++) 
+  for(int i = 0; 1<food.size(); i++) 
   {
-    if (dist(food.get(i).locationx, food.get(i).locationy, carni.locationx, carni.locationy) < shortest) 
+    if (dist(food.get(i).locationx, food.get(i).locationy, carni.locationx, carni.locationy) > shortest) 
     {
-      System.out.print("Joe biden");
       shortest = dist(food.get(i).locationx, food.get(i).locationy, carni.locationx, carni.locationy);
+      food.remove(i); //suspicious
+      
     }
   }
   return shortest;

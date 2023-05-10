@@ -32,6 +32,6 @@ class Carnivore extends Cell {
   }
   
   void updateINP(){
-    super.input = distanceTo(this);
+      input = distanceTo(this);
   }
 }
