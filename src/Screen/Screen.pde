@@ -26,7 +26,7 @@ void setup() {
 
   boolean play = false;
   boolean play2 = false;
-  background = loadImage("agarbg.png");
+  background = loadImage("torekka.png");
   imageMode(CENTER);
   start = loadImage("osulogo.png");
   startButton = new Button(width/2, height/2, r, r, 1.2, start);
