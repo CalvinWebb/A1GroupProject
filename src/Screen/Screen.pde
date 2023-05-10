@@ -148,10 +148,11 @@ void startScreen() {
 
 void evolveCarnivore(ArrayList<Carnivore> olist) {
   for (int i = 0; i<olist.size()-1; i++) {
+    //bubble sort
     // We need to fix cell where fitness is incremented by 1 for every food it eats
     int key = olist.get(i).fitness;
     int j= i - 1;
-
+//FIX SORTING ALG
     while (j>=0 && olist.get(i).fitness < key) {
       olist.get(i+1).fitness = olist.get(i).fitness;
       j = j - 1;
