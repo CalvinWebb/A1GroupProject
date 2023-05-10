@@ -19,7 +19,7 @@ class Food {
 
   boolean collide(float _x, float _y, float _r) {
     distance = dist(locationx, locationy, _x, _y);
-    if (distance < r) {
+    if (distance < _r) {
       return true;
     } else {
       return false;

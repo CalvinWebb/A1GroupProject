@@ -3,7 +3,6 @@ import java.util.*;
 
 //timstep of .05
 SoundFile music;
-int carnivoreGeneration = 3;
 PImage background;
 boolean play;
 boolean play2;
@@ -80,10 +79,14 @@ void draw() {
       carnivorepart.update_pos();
       carnivorepart.display();
 
-      for (int i =0; i<food.size()-1; i++) {
+      for (int i =0; i<food.size(); i++) {
         if (carnivorepart.collide(food.get(i).locationx, food.get(i).locationy, food.get(i).r)) {
+          System.out.println("Collision");
           carnivorepart.r += 32748/(carnivorepart.r* carnivorepart.r);
           carnivorepart.updateINP();
+          food.remove(food.get(i));
+        }else{
+          food.get(i).display();
         }
       }
       for (int j=0; j*1.5<carnivore.size(); j++) {
@@ -91,20 +94,21 @@ void draw() {
         if (carnivorepart.collide(carnivore.get(j).locationx, carnivore.get(j).locationy, carnivore.get(j).r) && carnivorepart.r/carnivore.get(j).r>=1.1) {
           carnivorepart.r+=carnivore.get(j).r*0.5;
           carnivore.remove(j);
-          carnivoreGeneration -= 1;
         }
       }
     }
-    for (Food foodpart : food) {
-      for (Carnivore carnivorepart : carnivore) {
-        if (foodpart.collide(carnivorepart.locationx, carnivorepart.locationy, foodpart.r) == false) {
-          foodpart.display();
-        }
-        else {
-          food.remove(foodpart); 
-        }
-      }
-    }
+    //for (Food foodpart : food) {
+    //  for (Carnivore carnivorepart : carnivore) {
+    //    if (foodpart.collide(carnivorepart.locationx, carnivorepart.locationy, foodpart.r) == false) {
+    //      System.out.println("Not Hit");
+    //      foodpart.display();
+    //    }
+    //    else {
+    //      System.out.println("Collision");
+    //      food.remove(foodpart); 
+    //    }
+    //  }
+    //}
   
   }
 }
@@ -197,7 +201,7 @@ void mouseReleased() {
 public float distanceTo(Carnivore carni) 
 {
   float shortest = dist(food.get(0).locationx, food.get(0).locationy, carni.locationx, carni.locationy);
-  for(int i = 0; 1<food.size(); i++) 
+  for(int i = 0; i<food.size(); i++) 
   {
     if (dist(food.get(i).locationx, food.get(i).locationy, carni.locationx, carni.locationy) > shortest) 
     {

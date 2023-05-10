@@ -18,7 +18,8 @@ class Cell {
     locationy=y;
     nn_dr = 0;
     rotation = random(0,360);
-    speed = 10;
+    // temp 100
+    speed = 100;
     who = input_who;
     wih = input_wih;
     input = temp_input;
@@ -45,13 +46,11 @@ class Cell {
   }
 
   void update_rotation() {
-    System.out.println("processsing dumb");
     rotation += nn_dr;
     rotation = rotation % 360;
   }
 
   void update_pos() {
-    System.out.println("processsing fucking weird");
     double tempx;
     double tempy;
     tempx = speed* cos(radians(rotation)) * .05;
