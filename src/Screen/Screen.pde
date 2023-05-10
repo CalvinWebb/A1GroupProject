@@ -75,9 +75,6 @@ void draw() {
     for (int m=0; m<carnivore.size(); m++) {
       Carnivore carnivorepart = carnivore.get(m);
       carnivorepart.beforeEat = millis();
-
-      carnivorepart.think();
-      carnivorepart.update_rotation();
       carnivorepart.update_pos();
       carnivorepart.display();
 
@@ -90,6 +87,8 @@ void draw() {
           carnivorepart.r += 32748/(carnivorepart.r* carnivorepart.r);
           carnivorepart.updateINP();
           System.out.println("cock" + carnivorepart.input);
+          carnivorepart.think();
+          carnivorepart.update_rotation();
           if(food.size() > i) {
             food.remove(food.get(i));
             
@@ -210,13 +209,15 @@ void mouseReleased() {
 public float distanceTo(Carnivore carni) 
 {
   float shortest = dist(food.get(0).locationx, food.get(0).locationy, carni.locationx, carni.locationy);
+  double rot = 0;
   for(int i = 0; i<food.size(); i++) 
   {
     if (dist(food.get(i).locationx, food.get(i).locationy, carni.locationx, carni.locationy) < shortest) 
     {
       System.out.print("Joe biden");
       shortest = dist(food.get(i).locationx, food.get(i).locationy, carni.locationx, carni.locationy);
+      rot = Math.atan((food.get(i).locationy - carni.locationy)/(food.get(i).locationx - carni.locationx));
     }
   }
-  return shortest;
+  return (float)rot*180/PI;
 }
