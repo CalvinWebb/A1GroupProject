@@ -34,4 +34,13 @@ class Carnivore extends Cell {
   void updateINP(){
       input = distanceTo(this);
   }
+  void onEdge(){
+    if((super.locationx+(r/2) > width) || (super.locationx-(r/2) < 0) || (super.locationy+(r/2)>height) || (super.locationy-(r/2)<0)) {
+          System.out.println("evan");
+          this.rotation += 180;
+          this.update_rotation();
+          this.updateINP();
+          this.think();
+        }
+  }
 }

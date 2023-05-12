@@ -18,10 +18,8 @@ void setup() {
   frameRate(120);
   fullScreen();
   SoundFile music = new SoundFile(this, "599182.mp3");
-  //beats = new BeatDetector(this);
   music.play();
   music.loop();
-  //beats.sensitivity(1000);
 
   boolean play = false;
   boolean play2 = false;
@@ -33,21 +31,16 @@ void setup() {
   for (int ii=0; ii<5; ii++) {
     temp[ii][0]=0.5;
   }
-  graph.add(69);
-  graph.add(42);
-  graph.add(29);
-  
+
+  for(int i = 0; i < /*number of carnivores*/ 10; i++ ){
   carnivore.add(new Carnivore(width/2, height/2, temp, temp, 1));
-  carnivore.add(new Carnivore(width/2, height/2, temp, temp, 1));
-  carnivore.add(new Carnivore(width/2, height/2, temp, temp, 1));
-  carnivore.add(new Carnivore(width/2, height/2, temp, temp, 1));
+  }
 }
 void draw() {
   //Determine if user is in gameplay
   if (!play) {
     startScreen();
   } else {
-    //food.add(new Food(width/2,height/2));
     
     // Actual Playing Screen
     if(play2) {
@@ -61,21 +54,18 @@ void draw() {
   }
     background(0);
     //Food
-    if (food.size() <= 100) {
+    if (food.size() <= 10) {
       food.add(new Food(random(width), random(height)));
     }
     
 
 
-    //Carnivore
-    //if (carnivore.size() <=carnivoreGeneration) {
-    //  //carnivore.add(new Carnivore(width/2, height/2,));
-    //}
     graph.graph();
     for (int m=0; m<carnivore.size(); m++) {
       Carnivore carnivorepart = carnivore.get(m);
       carnivorepart.beforeEat = millis();
       carnivorepart.update_pos();
+      carnivorepart.onEdge();
       carnivorepart.display();
 
       for (int i =0; i<food.size(); i++) {
@@ -93,30 +83,18 @@ void draw() {
             food.remove(food.get(i));
             
           }
-          //food.remove(food.get(i));
         }
 
       }
-      for (int j=0; j*1.5<carnivore.size(); j++) {
-        // What is this? Edge detection? Carnivore Eat?
-        if (carnivorepart.collide(carnivore.get(j).locationx, carnivore.get(j).locationy, carnivore.get(j).r) && carnivorepart.r/carnivore.get(j).r>=1.1) {
-          carnivorepart.r+=carnivore.get(j).r*0.5;
-          carnivore.remove(j);
-        }
-      }
+
+      //for (int j=0; j*1.5<carnivore.size(); j++) {
+      //  // What is this? Edge detection? Carnivore Eat?
+      //  if (carnivorepart.collide(carnivore.get(j).locationx, carnivore.get(j).locationy, carnivore.get(j).r) && carnivorepart.r/carnivore.get(j).r>=1.1) {
+      //    carnivorepart.r+=carnivore.get(j).r*0.5;
+      //    carnivore.remove(j);
+      //  }
+      //}
     }
-    //for (Food foodpart : food) {
-    //  for (Carnivore carnivorepart : carnivore) {
-    //    if (foodpart.collide(carnivorepart.locationx, carnivorepart.locationy, foodpart.r) == false) {
-    //      System.out.println("Not Hit");
-    //      foodpart.display();
-    //    }
-    //    else {
-    //      System.out.println("Collision");
-    //      food.remove(foodpart); 
-    //    }
-    //  }
-    //}
   
   }
 }
@@ -158,7 +136,7 @@ for(int i = 0; i < olist.size(); i++){
   }
 }
   
-  graph.add(temp);
+  graph.add(olist.get(0).nn_dr/olist.get(0).input);
   for(Carnivore carnivorepart: carnivore){
       old_carnivore.add(carnivorepart);
   }
@@ -167,7 +145,7 @@ for(int i = 0; i < olist.size(); i++){
   //  olist.remove(k);
   //}
   // size is 4
-  for (int l = 0; l < 4; l++) {
+  for (int l = 0; l < old_carnivore.size(); l++) {
     olist.add(new Carnivore(old_carnivore.get(0).locationx, old_carnivore.get(0).locationy, old_carnivore.get(0).wih, old_carnivore.get(0).who, /*Neural Network learning*/random(0, 360)));
   }
   int mat_pick = (int)random(0, 1.9);
@@ -175,7 +153,7 @@ for(int i = 0; i < olist.size(); i++){
     if (mat_pick == 1) {
       for (int p = 0; p< olist.get(d).wih.length; p++) {
         for (int h = 0; h< olist.get(d).wih[0].length; h++) {
-          olist.get(d).wih[p][h] = random(.8, 1.2);
+          olist.get(d).wih[p][h] *= random(.8, 1.2);
           if (olist.get(d).wih[p][h] > 1) {
             olist.get(d).wih[p][h] = 1;
           }
@@ -187,7 +165,7 @@ for(int i = 0; i < olist.size(); i++){
     } else {
       for (int u =0; u< olist.get(d).who.length; u++) {
         for (int y = 0; y< olist.get(d).who[0].length; y++) {
-          olist.get(d).who[u][y] = random(.8, 1.2);
+          olist.get(d).who[u][y] *= random(.8, 1.2);
           if (olist.get(d).who[u][y] > 1) {
             olist.get(d).who[u][y] = 1;
           }

@@ -19,7 +19,7 @@ class Cell {
     nn_dr = 0;
     rotation = random(0,360);
     // temp 100
-    speed = 100;
+    speed = 50;
     who = input_who;
     wih = input_wih;
     input = temp_input;
@@ -46,7 +46,7 @@ class Cell {
   }
 
   void update_rotation() {
-    rotation += nn_dr;
+    rotation += nn_dr * 180;
     rotation = rotation % 360;
   }
 

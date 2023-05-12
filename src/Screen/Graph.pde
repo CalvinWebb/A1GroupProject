@@ -1,8 +1,8 @@
 //brannnnnnnon
 class Graph {
 
-  private ArrayList<Integer> score = new ArrayList<Integer>();
-  public void add(int e) {
+  private ArrayList<Float> score = new ArrayList<Float>();
+  public void add(float e) {
     score.add(e);
   }
   public void graph() {
