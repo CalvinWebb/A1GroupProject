@@ -10,20 +10,24 @@ class Cell {
   float[][] hi = new float[5][1];
   float nn_dr;
   int fitness;
+  boolean canEatCell;
 
   //boolean hat = false;
 
-  Cell(float x, float y, float[][] input_wih, float[][] input_who, float temp_input) {
+  Cell(float x, float y, float[][] input_wih, float[][] input_who, float temp_input, boolean canEatCell) {
+    this.canEatCell=canEatCell;
     locationx=x;
     locationy=y;
     nn_dr = 0;
     rotation = random(0,360);
     // temp 100
+    
     speed = 50;
     who = input_who;
     wih = input_wih;
     input = temp_input;
     fitness = 0;
+    
   }
 
   void think() {

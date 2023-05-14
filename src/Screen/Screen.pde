@@ -14,6 +14,8 @@ public ArrayList <Carnivore> carnivore = new ArrayList<Carnivore>();
 public ArrayList <Carnivore> old_carnivore = new ArrayList<Carnivore>();
 Graph graph = new Graph();
 
+Graph graph2 = new Graph();
+
 void setup() {
   frameRate(120);
   fullScreen();
@@ -32,8 +34,11 @@ void setup() {
     temp[ii][0]=0.5;
   }
 
-  for(int i = 0; i < /*number of carnivores*/ 10; i++ ){
-  carnivore.add(new Carnivore(width/2, height/2, temp, temp, 1));
+  for (int i = 0; i < /*number of carnivores*/ 10; i++ ) {
+    carnivore.add(new Carnivore(width/2, height/2, temp, temp, 1, true));
+  }
+  for (int i = 0; i < /*number of herbivores*/ 20; i++ ) {
+    carnivore.add(new Carnivore(width/2, height/2, temp, temp, 1, false));
   }
 }
 void draw() {
@@ -41,26 +46,26 @@ void draw() {
   if (!play) {
     startScreen();
   } else {
-    
+
     // Actual Playing Screen
-    if(play2) {
+    if (play2) {
       play2=false;
       food.clear();
-    evolveCarnivore(carnivore);
-    carnivore.get(0).r=50;
-    carnivore.get(0).locationx=width/2;
-    carnivore.get(0).locationy=height/2;
-    carnivore.get(0).fitness=0;
-  }
+      evolveCarnivore(carnivore);
+      carnivore.get(0).r=50;
+      carnivore.get(0).locationx=width/2;
+      carnivore.get(0).locationy=height/2;
+      carnivore.get(0).fitness=0;
+    }
     background(0);
     //Food
     if (food.size() <= 10) {
       food.add(new Food(random(width), random(height)));
     }
-    
 
 
-    graph.graph();
+
+    graph.graph(#FF0000);
     for (int m=0; m<carnivore.size(); m++) {
       Carnivore carnivorepart = carnivore.get(m);
       carnivorepart.beforeEat = millis();
@@ -71,7 +76,7 @@ void draw() {
       for (int i =0; i<food.size(); i++) {
         if (!carnivorepart.collide(food.get(i).locationx, food.get(i).locationy, food.get(i).r)) {
           food.get(i).display();
-        }else{
+        } else {
           System.out.println(i);
           System.out.println("Collision");
           carnivorepart.r += 32748/(carnivorepart.r* carnivorepart.r);
@@ -79,23 +84,20 @@ void draw() {
           System.out.println("cock" + carnivorepart.input);
           carnivorepart.think();
           carnivorepart.update_rotation();
-          if(food.size() > i) {
+          if (food.size() > i) {
             food.remove(food.get(i));
-            
           }
         }
-
       }
 
-      //for (int j=0; j*1.5<carnivore.size(); j++) {
-      //  // What is this? Edge detection? Carnivore Eat?
-      //  if (carnivorepart.collide(carnivore.get(j).locationx, carnivore.get(j).locationy, carnivore.get(j).r) && carnivorepart.r/carnivore.get(j).r>=1.1) {
-      //    carnivorepart.r+=carnivore.get(j).r*0.5;
-      //    carnivore.remove(j);
-      //  }
-      //}
+      for (int j=0; j<carnivore.size(); j++) {
+        // What is this? Edge detection? Carnivore Eat?
+        if (carnivorepart.collide(carnivore.get(j).locationx, carnivore.get(j).locationy, carnivore.get(j).r) && carnivorepart.r/carnivore.get(j).r>=1.1&&carnivorepart.canEatCell==true) {
+          carnivorepart.r+=carnivore.get(j).r*0.5;
+          carnivore.remove(j);
+        }
+      }
     }
-  
   }
 }
 
@@ -125,28 +127,48 @@ void startScreen() {
 }
 
 void evolveCarnivore(ArrayList<Carnivore> olist) {
-Carnivore temp;
-for(int i = 0; i < olist.size(); i++){
-  for(int j = 1; j < olist.size(); j++){
-    if(olist.get(j-1).fitness < olist.get(j).fitness){
-      temp = olist.get(j-1);
-      olist.set(j-1, olist.get(j));
-      olist.set(j, temp);
+  Carnivore temp;
+  ArrayList<Carnivore> olist2=new ArrayList<Carnivore>();
+  for (int amongus =0; amongus<olist.size(); amongus++) {
+    if (!olist.get(amongus).canEatCell) {
+      olist2.add(olist.get(amongus));
+      olist.remove(amongus);
     }
   }
-}
-  
-  graph.add(olist.get(0).nn_dr/olist.get(0).input);
-  for(Carnivore carnivorepart: carnivore){
-      old_carnivore.add(carnivorepart);
+  for (int i = 0; i < olist.size(); i++) {
+    for (int j = 1; j < olist.size(); j++) {
+      if (olist.get(j-1).fitness < olist.get(j).fitness) {
+        temp = olist.get(j-1);
+        olist.set(j-1, olist.get(j));
+        olist.set(j, temp);
+      }
+    }
   }
+  for (int i = 0; i < olist2.size(); i++) {
+    for (int j = 1; j < olist2.size(); j++) {
+      if (olist2.get(j-1).fitness < olist2.get(j).fitness) {
+        temp = olist2.get(j-1);
+        olist2.set(j-1, olist2.get(j));
+        olist2.set(j, temp);
+      }
+    }
+  }
+
+  graph.add(olist.get(0).nn_dr/olist.get(0).input);
+  graph2.add(olist2.get(0).nn_dr/olist2.get(0).input);
+  for (Carnivore carnivorepart : carnivore) {
+    old_carnivore.add(carnivorepart);
+  }
+  int eeeeeee=olist.size();
+  int eeeeeeee=olist2.size();
   olist.clear();
+  olist2.clear();
   //for (int k = olist.size()-1; k > 0; k--) {
   //  olist.remove(k);
   //}
   // size is 4
-  for (int l = 0; l < old_carnivore.size(); l++) {
-    olist.add(new Carnivore(old_carnivore.get(0).locationx, old_carnivore.get(0).locationy, old_carnivore.get(0).wih, old_carnivore.get(0).who, /*Neural Network learning*/random(0, 360)));
+  for (int l = 0; l < eeeeeee; l++) {
+    olist.add(new Carnivore(old_carnivore.get(0).locationx, old_carnivore.get(0).locationy, old_carnivore.get(0).wih, old_carnivore.get(0).who, /*Neural Network learning*/random(0, 360), true));
   }
   int mat_pick = (int)random(0, 1.9);
   for (int d = 0; d< olist.size(); d++) {
@@ -184,13 +206,13 @@ void mouseReleased() {
 }
 
 
-public float distanceTo(Carnivore carni) 
+public float distanceTo(Carnivore carni)
 {
   float shortest = dist(food.get(0).locationx, food.get(0).locationy, carni.locationx, carni.locationy);
   double rot = 0;
-  for(int i = 0; i<food.size(); i++) 
+  for (int i = 0; i<food.size(); i++)
   {
-    if (dist(food.get(i).locationx, food.get(i).locationy, carni.locationx, carni.locationy) < shortest) 
+    if (dist(food.get(i).locationx, food.get(i).locationy, carni.locationx, carni.locationy) < shortest)
     {
       System.out.print("Joe biden");
       shortest = dist(food.get(i).locationx, food.get(i).locationy, carni.locationx, carni.locationy);
