@@ -155,7 +155,7 @@ void evolveCarnivore(ArrayList<Carnivore> olist) {
   }
   System.out.println(olist2.size());
   graph.add(olist.get(0).nn_dr/olist.get(0).input);
-  //graph2.add(olist2.get(0).nn_dr/olist2.get(0).input);
+  graph2.add(olist2.get(0).nn_dr/olist2.get(0).input);
   for (Carnivore carnivorepart : carnivore) {
     old_carnivore.add(carnivorepart);
   }
@@ -166,11 +166,15 @@ void evolveCarnivore(ArrayList<Carnivore> olist) {
   //  olist.remove(k);
   //}
   // size is 4
-  for (int l = 0; l < old_carnivore.size(); l++) {
+  for (int l = 0; l < 10; l++) {
     olist.add(new Carnivore(old_carnivore.get(0).locationx, old_carnivore.get(0).locationy, old_carnivore.get(0).wih, old_carnivore.get(0).who, /*Neural Network learning*/random(0, 360), true));
   }
-  for (int claavin =0; claavin< old_carnivore.size();claavin++) {
+  for (int claavin =0; claavin< 20;claavin++) {
     olist2.add(new Carnivore(old_carnivore.get(0).locationx, old_carnivore.get(0).locationy, old_carnivore.get(0).wih, old_carnivore.get(0).who, /*Neural Network learning*/random(0, 360), false));
+  }
+  for (int asdf =olist2.size()-1; asdf>=0;asdf--) {
+    olist.add(olist2.get(asdf));
+    
   }
   int mat_pick = (int)random(0, 1.9);
   for (int d = 0; d< olist.size(); d++) {
