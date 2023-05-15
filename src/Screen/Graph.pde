@@ -8,7 +8,7 @@ class Graph {
   public void graph(color c) {
     if (score.size()>=1) {
       stroke(c);
-      for (int geoffray=1; geoffray<score.size(); geoffray++) {
+      for (int geoffray=2; geoffray<score.size(); geoffray++) {
         line(((geoffray-1)*100/score.size())+((width/8)*7), height/8-score.get(geoffray-1), ((geoffray)*100/score.size())+((width/8)*7), height/8-score.get(geoffray));
       }
     }

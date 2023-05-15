@@ -12,6 +12,8 @@ int r = height*6;
 public ArrayList <Food> food = new ArrayList<Food>();
 public ArrayList <Carnivore> carnivore = new ArrayList<Carnivore>();
 public ArrayList <Carnivore> old_carnivore = new ArrayList<Carnivore>();
+float[][] temps = {{0.5,0.5,0.5,0.5,0.5}};
+Carnivore bestHerbivore=new Carnivore(width/2.0, height/2.0, temps, temps, 1.0, false);
 Graph graph = new Graph();
 
 Graph graph2 = new Graph();
@@ -66,26 +68,33 @@ void draw() {
 
 
     graph.graph(#FF0000);
+    graph2.graph(#00FF00);
     for (int m=0; m<carnivore.size(); m++) {
       Carnivore carnivorepart = carnivore.get(m);
       carnivorepart.beforeEat = millis();
       carnivorepart.update_pos();
       carnivorepart.onEdge();
       carnivorepart.display();
-
+      if (carnivorepart.canEatCell==false) {
+        bestHerbivore=carnivorepart;
+      }
       for (int i =0; i<food.size(); i++) {
         if (!carnivorepart.collide(food.get(i).locationx, food.get(i).locationy, food.get(i).r)) {
           food.get(i).display();
         } else {
           System.out.println(i);
           System.out.println("Collision");
+          if(carnivorepart.canEatCell==true) {
           carnivorepart.r += 32748/(carnivorepart.r* carnivorepart.r);
+          } else {
+          carnivorepart.r += (32748/(carnivorepart.r* carnivorepart.r))*2.0;
+          }
           carnivorepart.updateINP();
-          System.out.println("cock" + carnivorepart.input);
           carnivorepart.think();
           carnivorepart.update_rotation();
           if (food.size() > i) {
             food.remove(food.get(i));
+            carnivorepart.fitness ++;
           }
         }
       }
@@ -94,6 +103,7 @@ void draw() {
         // What is this? Edge detection? Carnivore Eat?
         if (carnivorepart.collide(carnivore.get(j).locationx, carnivore.get(j).locationy, carnivore.get(j).r) && carnivorepart.r/carnivore.get(j).r>=1.1&&carnivorepart.canEatCell==true) {
           carnivorepart.r+=carnivore.get(j).r*0.5;
+
           carnivore.remove(j);
         }
       }
@@ -129,7 +139,8 @@ void startScreen() {
 void evolveCarnivore(ArrayList<Carnivore> olist) {
   Carnivore temp;
   ArrayList<Carnivore> olist2 = new ArrayList<Carnivore>();
-  for (int amongus = olist.size() - 1 ; amongus >= 0; amongus--) {
+  olist2.add(bestHerbivore);
+  for (int amongus = olist.size() - 1; amongus >= 0; amongus--) {
     if (olist.get(amongus).canEatCell==false) {
       olist2.add(olist.get(amongus));
       olist.remove(amongus);
@@ -144,22 +155,24 @@ void evolveCarnivore(ArrayList<Carnivore> olist) {
       }
     }
   }
-  for (int i = 0; i < olist2.size(); i++) {
-    for (int j = 1; j < olist2.size(); j++) {
-      if (olist2.get(j-1).fitness < olist2.get(j).fitness) {
-        temp = olist2.get(j-1);
-        olist2.set(j-1, olist2.get(j));
-        olist2.set(j, temp);
+  if (olist2.size()>0) {
+    for (int i = 0; i < olist2.size(); i++) {
+      for (int j = 1; j < olist2.size(); j++) {
+        if (olist2.get(j-1).fitness < olist2.get(j).fitness) {
+          temp = olist2.get(j-1);
+          olist2.set(j-1, olist2.get(j));
+          olist2.set(j, temp);
+        }
       }
     }
   }
   System.out.println(olist2.size());
-  graph.add(olist.get(0).nn_dr/olist.get(0).input);
-  graph2.add(olist2.get(0).nn_dr/olist2.get(0).input);
+  graph.add(olist.get(0).rotation/olist.get(0).input);
+  graph2.add(olist2.get(0).rotation/olist2.get(0).input);
   for (Carnivore carnivorepart : carnivore) {
     old_carnivore.add(carnivorepart);
   }
-  
+
   olist.clear();
   olist2.clear();
   //for (int k = olist.size()-1; k > 0; k--) {
@@ -169,12 +182,11 @@ void evolveCarnivore(ArrayList<Carnivore> olist) {
   for (int l = 0; l < 10; l++) {
     olist.add(new Carnivore(old_carnivore.get(0).locationx, old_carnivore.get(0).locationy, old_carnivore.get(0).wih, old_carnivore.get(0).who, /*Neural Network learning*/random(0, 360), true));
   }
-  for (int claavin =0; claavin< 20;claavin++) {
+  for (int claavin =0; claavin< 20; claavin++) {
     olist2.add(new Carnivore(old_carnivore.get(0).locationx, old_carnivore.get(0).locationy, old_carnivore.get(0).wih, old_carnivore.get(0).who, /*Neural Network learning*/random(0, 360), false));
   }
-  for (int asdf =olist2.size()-1; asdf>=0;asdf--) {
+  for (int asdf =olist2.size()-1; asdf>=0; asdf--) {
     olist.add(olist2.get(asdf));
-    
   }
   int mat_pick = (int)random(0, 1.9);
   for (int d = 0; d< olist.size(); d++) {
