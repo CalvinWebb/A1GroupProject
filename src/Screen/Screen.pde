@@ -15,10 +15,11 @@ public ArrayList <Carnivore> old_carnivore = new ArrayList<Carnivore>();
 float[][] temps = {{0.5,0.5,0.5,0.5,0.5}};
 Carnivore bestHerbivore=new Carnivore(width/2.0, height/2.0, temps, temps, 1.0, false);
 Graph graph = new Graph();
-
+int time;
 Graph graph2 = new Graph();
 
 void setup() {
+  time = millis();
   frameRate(120);
   fullScreen();
   SoundFile music = new SoundFile(this, "Among Us  Eurobeat Remix.mp3");
@@ -71,7 +72,12 @@ void draw() {
     graph2.graph(#00FF00);
     for (int m=0; m<carnivore.size(); m++) {
       Carnivore carnivorepart = carnivore.get(m);
-      carnivorepart.beforeEat = millis();
+      carnivorepart.updateINP();
+      if(millis() > time + 1000){
+        carnivorepart.think();
+        time = millis();
+      }
+      carnivorepart.update_rotation();
       carnivorepart.update_pos();
       carnivorepart.onEdge();
       carnivorepart.display();
@@ -82,16 +88,17 @@ void draw() {
         if (!carnivorepart.collide(food.get(i).locationx, food.get(i).locationy, food.get(i).r)) {
           food.get(i).display();
         } else {
-          System.out.println(i);
-          System.out.println("Collision");
           if(carnivorepart.canEatCell==true) {
           carnivorepart.r += 32748/(carnivorepart.r* carnivorepart.r);
           } else {
-          carnivorepart.r += (32748/(carnivorepart.r* carnivorepart.r))*2.0;
+          carnivorepart.r += (32748/(carnivorepart.r* carnivorepart.r))*1.5;
           }
           carnivorepart.updateINP();
           carnivorepart.think();
           carnivorepart.update_rotation();
+          carnivorepart.update_pos();
+          carnivorepart.onEdge();
+          carnivorepart.display();
           if (food.size() > i) {
             food.remove(food.get(i));
             carnivorepart.fitness ++;
@@ -102,7 +109,7 @@ void draw() {
       for (int j=0; j<carnivore.size(); j++) {
         // What is this? Edge detection? Carnivore Eat?
         if (carnivorepart.collide(carnivore.get(j).locationx, carnivore.get(j).locationy, carnivore.get(j).r) && carnivorepart.r/carnivore.get(j).r>=1.1&&carnivorepart.canEatCell==true) {
-          carnivorepart.r+=carnivore.get(j).r*0.5;
+          carnivorepart.r+=carnivore.get(j).r*0.3;
 
           carnivore.remove(j);
         }
