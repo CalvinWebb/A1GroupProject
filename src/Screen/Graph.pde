@@ -5,9 +5,9 @@ class Graph {
   public void add(float e) {
     score.add(e);
   }
-  public void graph() {
+  public void graph(color c) {
     if (score.size()>=1) {
-      stroke(255,0,0);
+      stroke(c);
       for (int geoffray=1; geoffray<score.size(); geoffray++) {
         line(((geoffray-1)*100/score.size())+((width/8)*7), height/8-score.get(geoffray-1), ((geoffray)*100/score.size())+((width/8)*7), height/8-score.get(geoffray));
       }
