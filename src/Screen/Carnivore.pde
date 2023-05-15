@@ -49,5 +49,5 @@ class Carnivore extends Cell {
           this.think();
           this.update_rotation();
         }
-
+  }
 }
