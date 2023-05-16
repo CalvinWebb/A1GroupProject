@@ -15,12 +15,10 @@ public ArrayList <Carnivore> old_carnivore = new ArrayList<Carnivore>();
 float[][] temps = {{0.5,0.5,0.5,0.5,0.5}};
 Carnivore bestHerbivore=new Carnivore(width/2.0, height/2.0, temps, temps, 1.0, false);
 Graph graph = new Graph();
-int time;
 Graph graph2 = new Graph();
+Graph perfect = new Graph();
 
 void setup() {
-  time = millis();
-  frameRate(120);
   fullScreen();
   SoundFile music = new SoundFile(this, "Among Us  Eurobeat Remix.mp3");
   music.play();
@@ -65,19 +63,21 @@ void draw() {
     if (food.size() <= 10) {
       food.add(new Food(random(width), random(height)));
     }
+    for(Carnivore c: carnivore){
+        c.updateINP();
+      }
 
 
 
     graph.graph(#FF0000);
     graph2.graph(#00FF00);
+    perfect.graph(#0000FF);
+    perfect.add(0);
     for (int m=0; m<carnivore.size(); m++) {
       Carnivore carnivorepart = carnivore.get(m);
       carnivorepart.updateINP();
-      if(millis() > time + 1000){
         carnivorepart.think();
-        time = millis();
-      }
-      carnivorepart.update_rotation();
+        carnivorepart.update_rotation();
       carnivorepart.update_pos();
       carnivorepart.onEdge();
       carnivorepart.display();
@@ -93,12 +93,6 @@ void draw() {
           } else {
           carnivorepart.r += (32748/(carnivorepart.r* carnivorepart.r))*1.5;
           }
-          carnivorepart.updateINP();
-          carnivorepart.think();
-          carnivorepart.update_rotation();
-          carnivorepart.update_pos();
-          carnivorepart.onEdge();
-          carnivorepart.display();
           if (food.size() > i) {
             food.remove(food.get(i));
             carnivorepart.fitness ++;
@@ -173,9 +167,8 @@ void evolveCarnivore(ArrayList<Carnivore> olist) {
       }
     }
   }
-  System.out.println(olist2.size());
-  graph.add(olist.get(0).rotation/olist.get(0).input);
-  graph2.add(olist2.get(0).rotation/olist2.get(0).input);
+  graph.add(/*amplitude of graph*/5*(olist.get(0).nn_dr - olist.get(0).input));
+  graph2.add(/*amplitude of graph*/5*(olist2.get(0).nn_dr - olist2.get(0).input));
   for (Carnivore carnivorepart : carnivore) {
     old_carnivore.add(carnivorepart);
   }
@@ -187,20 +180,20 @@ void evolveCarnivore(ArrayList<Carnivore> olist) {
   //}
   // size is 4
   for (int l = 0; l < 10; l++) {
-    olist.add(new Carnivore(old_carnivore.get(0).locationx, old_carnivore.get(0).locationy, old_carnivore.get(0).wih, old_carnivore.get(0).who, /*Neural Network learning*/random(0, 360), true));
+    olist.add(new Carnivore(width/2, height/2, old_carnivore.get(0).wih, old_carnivore.get(0).who, /*Neural Network learning*/0, true));
   }
   for (int claavin =0; claavin< 20; claavin++) {
-    olist2.add(new Carnivore(old_carnivore.get(0).locationx, old_carnivore.get(0).locationy, old_carnivore.get(0).wih, old_carnivore.get(0).who, /*Neural Network learning*/random(0, 360), false));
+    olist2.add(new Carnivore(width/2, height/2, old_carnivore.get(0).wih, old_carnivore.get(0).who, /*Neural Network learning*/0, false));
   }
   for (int asdf =olist2.size()-1; asdf>=0; asdf--) {
     olist.add(olist2.get(asdf));
   }
-  int mat_pick = (int)random(0, 1.9);
+  int mat_pick = (int)random(0, 2.0);
   for (int d = 0; d< olist.size(); d++) {
     if (mat_pick == 1) {
       for (int p = 0; p< olist.get(d).wih.length; p++) {
         for (int h = 0; h< olist.get(d).wih[0].length; h++) {
-          olist.get(d).wih[p][h] *= random(.8, 1.2);
+          olist.get(d).wih[p][h] *= random(.9, 1.2);
           if (olist.get(d).wih[p][h] > 1) {
             olist.get(d).wih[p][h] = 1;
           }
@@ -212,12 +205,12 @@ void evolveCarnivore(ArrayList<Carnivore> olist) {
     } else {
       for (int u =0; u< olist.get(d).who.length; u++) {
         for (int y = 0; y< olist.get(d).who[0].length; y++) {
-          olist.get(d).who[u][y] *= random(.8, 1.2);
+          olist.get(d).who[u][y] *= random(.9, 1.2);
           if (olist.get(d).who[u][y] > 1) {
-            olist.get(d).who[u][y] = 1;
+            olist.get(d).who[u][y] = 1.0;
           }
           if (olist.get(d).who[u][y] < -1) {
-            olist.get(d).who[u][y] = -1;
+            olist.get(d).who[u][y] = -1.0;
           }
         }
       }
@@ -234,15 +227,17 @@ void mouseReleased() {
 public float distanceTo(Carnivore carni)
 {
   float shortest = dist(food.get(0).locationx, food.get(0).locationy, carni.locationx, carni.locationy);
-  double rot = 0;
+  float rot = 0;
   for (int i = 0; i<food.size(); i++)
   {
     if (dist(food.get(i).locationx, food.get(i).locationy, carni.locationx, carni.locationy) < shortest)
     {
-      System.out.print("Joe biden");
       shortest = dist(food.get(i).locationx, food.get(i).locationy, carni.locationx, carni.locationy);
-      rot = Math.atan((food.get(i).locationy - carni.locationy)/(food.get(i).locationx - carni.locationx));
+      rot = degrees(atan2((food.get(i).locationy - carni.locationy), (food.get(i).locationx - carni.locationx))) - carni.rotation;
     }
   }
-  return (float)rot*180/PI;
+  if(abs(rot) > 180){
+    rot += 360;
+  }
+  return rot/180;
 }

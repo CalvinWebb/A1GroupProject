@@ -31,7 +31,6 @@ class Cell {
   }
 
   void think() {
-    
     for (int i =0; i< wih.length; i++) {
       for (int j = 0; j< wih[0].length; j++) {
         hi[i][j] = (float)Math.tanh(input * wih[i][j]);
@@ -50,7 +49,8 @@ class Cell {
   }
 
   void update_rotation() {
-    rotation += nn_dr * 180;
+    System.out.println(nn_dr);
+    rotation += nn_dr * 24;
     rotation = rotation % 360;
   }
 
