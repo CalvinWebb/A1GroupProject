@@ -103,7 +103,7 @@ void draw() {
       for (int j=0; j<carnivore.size(); j++) {
         // What is this? Edge detection? Carnivore Eat?
         if (carnivorepart.collide(carnivore.get(j).locationx, carnivore.get(j).locationy, carnivore.get(j).r) && carnivorepart.r/carnivore.get(j).r>=1.1&&carnivorepart.canEatCell==true) {
-          carnivorepart.r+=carnivore.get(j).r*0.3;
+          carnivorepart.r+= 50000/(carnivorepart.r* carnivorepart.r);
 
           carnivore.remove(j);
         }
