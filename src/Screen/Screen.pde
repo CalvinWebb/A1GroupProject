@@ -14,6 +14,7 @@ public ArrayList <Carnivore> carnivore = new ArrayList<Carnivore>();
 public ArrayList <Carnivore> old_carnivore = new ArrayList<Carnivore>();
 float[][] temps = {{0.5,0.5,0.5,0.5,0.5}};
 Carnivore bestHerbivore=new Carnivore(width/2.0, height/2.0, temps, temps, 1.0, false);
+Carnivore tester = new Carnivore(100, 100, temps, temps, 1.0, false);
 Graph graph = new Graph();
 Graph graph2 = new Graph();
 Graph perfect = new Graph();
@@ -66,7 +67,16 @@ void draw() {
     for(Carnivore c: carnivore){
         c.updateINP();
       }
-
+    tester.updateINP();
+    tester.nn_dr = tester.input;
+    tester.update_rotation();
+    tester.update_pos();
+    tester.display();
+      for(int i = food.size() - 1; i >= 0; i--){
+        if(tester.collide(food.get(i).locationx, food.get(i).locationy, food.get(i).r)){
+          food.remove(food.get(i));
+      }
+    }
 
 
     graph.graph(#FF0000);
